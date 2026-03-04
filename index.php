@@ -8,12 +8,10 @@ if ($page < 1) $page = 1;
 $offset = ($page - 1) * $limit;
 
 try {
-    // Fetch count of approved comments from your new table
     $total_stmt = $pdo->query("SELECT COUNT(*) FROM comments WHERE status = 'approved'");
     $total_comments = $total_stmt->fetchColumn();
     $total_pages = ceil($total_comments / $limit);
 
-    // Fetch comments using the 'comment_text' column
     $stmt = $pdo->prepare("SELECT * FROM comments WHERE status = 'approved' ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -37,34 +35,24 @@ try {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
-        
         nav { position: fixed; top: 0; width: 100%; padding: 20px 5%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; z-index: 100; align-items: center; }
         nav h1 { font-family: 'Plus Jakarta Sans'; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
         nav ul { display: flex; list-style: none; gap: 25px; }
         nav ul a { text-decoration: none; color: var(--text-dim); font-weight: 600; font-size: 0.85rem; }
-
         section { padding: 120px 8% 80px; max-width: 1300px; margin: 0 auto; }
-        
         .hero { display: flex; align-items: center; gap: 50px; min-height: 80vh; }
         .hero-text { flex: 1; }
         .hero-text h2 { font-family: 'Plus Jakarta Sans'; font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; line-height: 1.1; }
         .hero-text h2 span { color: var(--accent); }
         .badge { color: var(--accent); font-weight: 800; font-size: 0.75rem; letter-spacing: 2px; display: block; margin-bottom: 10px; }
-        
         .hero-image img { width: 380px; height: 380px; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .card { padding: 40px; background: white; border: 1px solid var(--border); border-radius: 20px; transition: 0.3s; }
         .card i { font-size: 2rem; color: var(--accent); margin-bottom: 20px; display: block; }
-
-        .btn-primary { padding: 15px 35px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-        .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
-
         .tag-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
         .tag { padding: 8px 20px; background: var(--light); border: 1px solid var(--border); border-radius: 50px; font-weight: 600; font-size: 0.8rem; }
-
+        .btn-primary { padding: 15px 35px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
         .form-box input, .form-box textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--light); font-family: inherit; }
-        
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem; }
         @media (max-width: 900px) { .hero { flex-direction: column-reverse; text-align: center; } .hero-image img { width: 280px; height: 280px; } }
     </style>
@@ -85,8 +73,8 @@ try {
     <div class="hero-text">
         <span class="badge">SENIOR ACCOUNTANT | FINANCIAL OPERATIONS PARTNER</span>
         <h2>High-Stakes <span>Financial</span> Clarity.</h2>
-        [cite_start]<p>I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise[cite: 6].</p>
-        [cite_start]<p style="margin-top: 10px; color: var(--text-dim);">17+ years of experience supporting international businesses across the US, Australia, and the Middle East[cite: 8].</p>
+        [cite_start]<p>I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise. [cite: 6]</p>
+        [cite_start]<p style="margin-top: 10px; color: var(--text-dim);">17+ years of experience supporting international businesses across the US, Australia, and the Middle East. [cite: 8]</p>
         <a href="#contact" class="btn-primary" style="margin-top: 25px;">SECURE A PARTNERSHIP</a>
     </div>
     <div class="hero-image">
@@ -100,17 +88,17 @@ try {
         <div class="card">
             <i class="fas fa-file-invoice-dollar"></i>
             <h3>Audit-Ready Books</h3>
-            [cite_start]<p>Transforming disorganized books into decision-ready financials[cite: 12]. [cite_start]Ensuring accurate, fully reconciled accounts every month[cite: 13].</p>
+            <p>Transforming disorganized books into decision-ready financials. [cite_start]Ensuring accurate, fully reconciled accounts every month. [cite: 12, 13]</p>
         </div>
         <div class="card">
             <i class="fas fa-chart-line"></i>
             <h3>Decision Intelligence</h3>
-            [cite_start]<p>Providing clear financial insights, not just reports[cite: 14]. [cite_start]Identifying risks, discrepancies, and inefficiencies early[cite: 15].</p>
+            <p>Providing clear financial insights, not just reports. [cite_start]Identifying risks, discrepancies, and inefficiencies early. [cite: 14, 15]</p>
         </div>
         <div class="card">
             <i class="fas fa-network-wired"></i>
             <h3>Scalable Systems</h3>
-            [cite_start]<p>Maintaining systems that support scaling businesses without breakdowns through structured workflows[cite: 16, 20].</p>
+            [cite_start]<p>Maintaining systems that support scaling businesses without breakdowns through structured workflows. [cite: 16, 20]</p>
         </div>
     </div>
 </section>
@@ -125,11 +113,11 @@ try {
     
     <div style="margin-top: 60px; padding: 40px; background: var(--primary); color: white; border-radius: 24px;">
         <h3 style="color: var(--accent); margin-bottom: 10px;">Featured Engagement: BLUESKY INVESTMENTS LLC</h3>
-        [cite_start]<p><strong>Finance/Accounting Lead (Nov 2018 - Present) [cite: 26]</strong></p>
+        [cite_start]<p><strong>Finance/Accounting Lead (Nov 2018 - Present) [cite: 25, 26]</strong></p>
         <ul style="margin-top: 15px; padding-left: 20px; color: #cbd5e1;">
-            [cite_start]<li>Lead end-to-end accounting and financial operations[cite: 27].</li>
-            [cite_start]<li>Oversee multi-entity accounting and intercompany transactions[cite: 28].</li>
-            [cite_start]<li>Perform budget vs. actual analysis to identify financial drivers[cite: 28].</li>
+            [cite_start]<li>Lead end-to-end accounting and financial operations. [cite: 27]</li>
+            [cite_start]<li>Oversee multi-entity accounting and intercompany transactions. [cite: 28]</li>
+            [cite_start]<li>Perform budget vs. actual analysis to identify financial drivers. [cite: 28]</li>
         </ul>
     </div>
 </section>
@@ -138,7 +126,7 @@ try {
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
         <div>
             <h2 style="font-size: 2.5rem; font-family: 'Plus Jakarta Sans'; margin-bottom: 20px;">Let's Connect.</h2>
-            [cite_start]<p>Supporting international clients across real estate, e-commerce, and service-based industries[cite: 18].</p>
+            [cite_start]<p>Supporting international clients across real estate, e-commerce, and service-based industries. [cite: 18]</p>
             [cite_start]<p style="margin-top: 20px;"><strong>Email:</strong> afryllou.consulting@gmail.com [cite: 3]</p>
             [cite_start]<p><strong>Phone:</strong> +63 999 586 61908 [cite: 4]</p>
         </div>

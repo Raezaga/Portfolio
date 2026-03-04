@@ -73,8 +73,8 @@ try {
     <div class="hero-text">
         <span class="badge">SENIOR ACCOUNTANT | FINANCIAL OPERATIONS PARTNER</span>
         <h2>High-Stakes <span>Financial</span> Clarity.</h2>
-        [cite_start]<p>I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise. [cite: 6]</p>
-        [cite_start]<p style="margin-top: 10px; color: var(--text-dim);">17+ years of experience supporting international businesses across the US, Australia, and the Middle East. [cite: 8]</p>
+        <p>I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise.</p>
+        <p style="margin-top: 10px; color: var(--text-dim);">17+ years of experience supporting international businesses across the US, Australia, and the Middle East.</p>
         <a href="#contact" class="btn-primary" style="margin-top: 25px;">SECURE A PARTNERSHIP</a>
     </div>
     <div class="hero-image">
@@ -88,17 +88,17 @@ try {
         <div class="card">
             <i class="fas fa-file-invoice-dollar"></i>
             <h3>Audit-Ready Books</h3>
-            <p>Transforming disorganized books into decision-ready financials. [cite_start]Ensuring accurate, fully reconciled accounts every month. [cite: 12, 13]</p>
+            <p>Transforming disorganized books into decision-ready financials. Ensuring accurate, fully reconciled accounts every month.</p>
         </div>
         <div class="card">
             <i class="fas fa-chart-line"></i>
             <h3>Decision Intelligence</h3>
-            <p>Providing clear financial insights, not just reports. [cite_start]Identifying risks, discrepancies, and inefficiencies early. [cite: 14, 15]</p>
+            <p>Providing clear financial insights, not just reports. Identifying risks, discrepancies, and inefficiencies early.</p>
         </div>
         <div class="card">
             <i class="fas fa-network-wired"></i>
             <h3>Scalable Systems</h3>
-            [cite_start]<p>Maintaining systems that support scaling businesses without breakdowns through structured workflows. [cite: 16, 20]</p>
+            <p>Maintaining systems that support scaling businesses without breakdowns through structured workflows.</p>
         </div>
     </div>
 </section>
@@ -106,18 +106,24 @@ try {
 <section id="portfolio">
     <h2 style="margin-bottom: 20px; font-family: 'Plus Jakarta Sans';">System Mastery</h2>
     <div class="tag-container">
-        <span class="tag">QuickBooks Online</span> <span class="tag">Xero</span> <span class="tag">NetSuite</span> 
-        <span class="tag">Bill.com</span> <span class="tag">Dext</span> <span class="tag">Stripe</span> 
-        [cite_start]<span class="tag">Salesforce</span> <span class="tag">ClickUp</span> <span class="tag">Floqast</span> [cite: 30, 31]
+        <span class="tag">QuickBooks Online</span> 
+        <span class="tag">Xero</span> 
+        <span class="tag">NetSuite</span> 
+        <span class="tag">Bill.com</span> 
+        <span class="tag">Dext</span> 
+        <span class="tag">Stripe</span> 
+        <span class="tag">Salesforce</span> 
+        <span class="tag">ClickUp</span> 
+        <span class="tag">Floqast</span>
     </div>
     
     <div style="margin-top: 60px; padding: 40px; background: var(--primary); color: white; border-radius: 24px;">
         <h3 style="color: var(--accent); margin-bottom: 10px;">Featured Engagement: BLUESKY INVESTMENTS LLC</h3>
-        [cite_start]<p><strong>Finance/Accounting Lead (Nov 2018 - Present) [cite: 25, 26]</strong></p>
+        <p><strong>Finance/Accounting Lead (Nov 2018 - Present)</strong></p>
         <ul style="margin-top: 15px; padding-left: 20px; color: #cbd5e1;">
-            [cite_start]<li>Lead end-to-end accounting and financial operations. [cite: 27]</li>
-            [cite_start]<li>Oversee multi-entity accounting and intercompany transactions. [cite: 28]</li>
-            [cite_start]<li>Perform budget vs. actual analysis to identify financial drivers. [cite: 28]</li>
+            <li>Lead end-to-end accounting and financial operations.</li>
+            <li>Oversee multi-entity accounting and intercompany transactions.</li>
+            <li>Perform budget vs. actual analysis to identify financial drivers.</li>
         </ul>
     </div>
 </section>
@@ -126,9 +132,9 @@ try {
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
         <div>
             <h2 style="font-size: 2.5rem; font-family: 'Plus Jakarta Sans'; margin-bottom: 20px;">Let's Connect.</h2>
-            [cite_start]<p>Supporting international clients across real estate, e-commerce, and service-based industries. [cite: 18]</p>
-            [cite_start]<p style="margin-top: 20px;"><strong>Email:</strong> afryllou.consulting@gmail.com [cite: 3]</p>
-            [cite_start]<p><strong>Phone:</strong> +63 999 586 61908 [cite: 4]</p>
+            <p>Supporting international clients across real estate, e-commerce, and service-based industries.</p>
+            <p style="margin-top: 20px;"><strong>Email:</strong> afryllou.consulting@gmail.com</p>
+            <p><strong>Phone:</strong> +63 999 586 61908</p>
         </div>
         <div class="form-box">
             <form id="commentForm">

@@ -140,8 +140,8 @@ try {
             <span>BILL.COM / DEXT</span>
         </div>
         <div class="sw-pill">
-            <img src="Salesforce.png" alt="Voyage" style="filter: brightness(0) invert(1); width: 100px;">
-            <span>SALESFORCE</span>
+            <img src="Voyage.png" alt="Voyage" style="width: 100px;">
+            <span>VOYAGE</span>
         </div>
         <div class="sw-pill">
             <img src="clickup.png" alt="ClickUp" style="width: 120px;">
@@ -153,7 +153,7 @@ try {
         </div>
     </div>
 </section>
-
+    
 <section id="connect">
     <div class="glass-card">
         <div>
@@ -272,5 +272,6 @@ try {
 </script>
 </body>
 </html>
+
 
 

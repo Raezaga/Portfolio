@@ -141,7 +141,8 @@ try {
 
 <section id="hero" class="hero">
     <div class="hero-text">
-        <div style="border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; color: var(--gold); margin-bottom: 25px; letter-spacing: 4px; font-weight: 800; font-size: 0.7rem;">17+ YEARS EXECUTIVE EXPERTISE</div>
+        <div style="border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; color: var(--gold); margin-bottom: 25px; letter-spacing: 4px; font-weight: 800; font-size: 0.7rem;">17+ Years Delivering Audit-Ready Financials for Growing Businesses
+</div>
         <h2>Transforming <span>Complex</span> Financials.</h2>
         <p style="font-size: 1.3rem; font-weight: 300; margin-bottom: 45px; max-width: 650px; color: var(--slate);">
             Senior Accountant & Financial Operations Partner helping global businesses gain clarity, control, and confidence in their numbers.
@@ -281,3 +282,4 @@ try {
 </script>
 </body>
 </html>
+

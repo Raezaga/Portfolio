@@ -202,6 +202,8 @@ try {
         </div>
         <div class="form-box">
             <form action="send_email.php" method="POST">
+                 <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1;">Let's Connect</h3>
+            <p style="margin: 25px 0; font-size: 1.1rem;">Secure financial partnership for international entities.</p>
                 <input type="text" name="name" placeholder="Full Name" required>
                 <input type="text" name="company" placeholder="Organization" required>
                 <input type="email" name="email" placeholder="Professional Email" required>
@@ -306,3 +308,4 @@ try {
 </script>
 </body>
 </html>
+

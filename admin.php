@@ -3,7 +3,7 @@ session_start();
 include "config.php";
 
 // CHANGE THIS PASSWORD FOR YOUR SECURITY
-$admin_password = "AfrylAdmin2024!"; 
+$admin_password = "AfrylAdmin"; 
 
 // 1. Simple Login Protection
 if (!isset($_SESSION['admin_auth'])) {
@@ -83,3 +83,4 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
     </table>
 </body>
 </html>
+

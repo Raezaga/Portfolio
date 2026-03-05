@@ -49,8 +49,18 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
+        /* BUTTON FIX: Side-by-Side Container */
+        .hero-btns { 
+            display: flex; 
+            flex-direction: row; 
+            gap: 20px; 
+            margin-top: 45px; 
+            align-items: center;
+        }
+
         .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
-        .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; margin-left: 15px; }
+        .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
+        
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 40px; }
@@ -63,12 +73,15 @@ try {
 
         .feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
         .feedback-item { background: var(--card-bg); padding: 50px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
-        .pagination a { padding: 12px 20px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); text-decoration: none; margin: 0 5px; }
-        .pagination a.active { background: var(--gold); color: var(--bg); }
-
+        
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
-        @media (max-width: 1100px) { .hero { flex-direction: column; text-align: center; } .btn-outline { margin-left: 0; margin-top: 15px; } .glass-card { grid-template-columns: 1fr; } .hero-text h2 { font-size: 3.5rem; } }
+        @media (max-width: 1100px) { 
+            .hero { flex-direction: column; text-align: center; } 
+            .hero-btns { justify-content: center; flex-direction: column; }
+            .glass-card { grid-template-columns: 1fr; } 
+            .hero-text h2 { font-size: 3.5rem; } 
+        }
     </style>
 </head>
 <body>
@@ -85,8 +98,10 @@ try {
         <p style="font-size: 1.3rem; font-weight: 300; margin-bottom: 45px; max-width: 650px; color: var(--slate);">
            Senior Financial Operations Partner specializing in audit-ready financials, intercompany reconciliations, and structured growth for international businesses.
         </p>
-        <a href="#connect" class="btn-gold">Secure Partnership</a>
-        <a href="Afryl_Lou_Okit_CV.pdf" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
+        <div class="hero-btns">
+            <a href="#connect" class="btn-gold">Secure Partnership</a>
+            <a href="Afryl_Lou_Okit_CV.pdf" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
+        </div>
     </div>
     <div class="hero-image">
         <div class="img-wrapper"><img src="afryl.jpg" alt="Afryl Lou Okit"></div>

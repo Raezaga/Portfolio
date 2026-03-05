@@ -17,6 +17,7 @@ try {
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) { 
+    error_log($e->getMessage());
     $comments = []; 
     $total_pages = 0; 
 }
@@ -95,19 +96,14 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
-        /* Highlighted words for Hero */
-        .highlight-gold {
-            color: var(--gold);
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+        .highlight-gold { color: var(--gold); text-transform: uppercase; font-weight: 700; }
 
         /* Buttons */
         .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; text-align: center; }
         .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
-        /* Tech Grid - Updated to stay colored */
+        /* Tech Grid */
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 40px; }
         .sw-pill { 
             background: rgba(197, 160, 89, 0.05); 
@@ -120,29 +116,26 @@ try {
             align-items: center; 
             justify-content: center; 
         }
-        .sw-pill img { 
-            margin-bottom: 15px; 
-            width: 100px; 
-            filter: grayscale(0%) brightness(1); 
-            transition: 0.3s; 
-        }
+        .sw-pill img { margin-bottom: 15px; width: 100px; transition: 0.3s; }
         .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; }
 
-        /* REFACTORED: Let's Connect Section */
+        /* Connect Section */
         .glass-card { 
             display: flex; 
             align-items: center; 
-            justify-content: space-between; 
-            gap: 80px; 
+            justify-content: center; 
             background: var(--card-bg); 
             padding: 80px; 
             border: 1px solid rgba(255,255,255,0.05); 
             box-shadow: 0 40px 100px rgba(0,0,0,0.5); 
         }
-        .connect-info { flex: 1; }
-        .form-box { flex: 1.2; }
+        .form-box { width: 100%; max-width: 800px; }
         .form-box input, .form-box textarea, .form-box select { width: 100%; padding: 20px 0; margin-bottom: 30px; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--white); outline: none; font-family: inherit; }
         .form-box select option { background: #070a13; color: white; }
+
+        /* Success Message Styling */
+        .status-container { text-align: center; margin-top: 35px; width: 100%; }
+        .status-pill { color: var(--gold); font-weight: 800; border: 1px solid var(--gold); padding: 15px 35px; display: inline-block; letter-spacing: 2px; font-size: 0.8rem; }
 
         /* Feedback Grid */
         .feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
@@ -154,11 +147,10 @@ try {
 
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
-        /* Mobile Responsiveness */
         @media (max-width: 1100px) { 
             .hero { flex-direction: column; text-align: center; padding-top: 150px; } 
             .hero-text h2 { font-size: 3.5rem; } 
-            .glass-card { flex-direction: column; padding: 40px; gap: 40px; text-align: center; }
+            .glass-card { padding: 40px; }
             nav { padding: 15px 5%; }
             nav h1 { font-size: 1.5rem; }
             nav ul { display: none; }
@@ -218,24 +210,26 @@ try {
     <div class="glass-card">
         <div class="form-box">
             <form action="send_email.php" method="POST">
-                 <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1;">Let's Connect</h3>
-            <p style="margin: 25px 0; font-size: 1.1rem;">Secure financial partnership for international entities.</p>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1; text-align:center;">Let's Connect</h3>
+                <p style="margin: 25px 0 45px; font-size: 1.1rem; text-align:center;">Secure financial partnership for international entities.</p>
                 <input type="text" name="name" placeholder="Full Name" required>
                 <input type="text" name="company" placeholder="Organization" required>
                 <input type="email" name="email" placeholder="Professional Email" required>
                 <textarea name="message" rows="4" placeholder="How can I assist your financials?" required></textarea>
                 <button type="submit" class="btn-gold" style="width: 100%;">Send Inquiry</button>
-            <?php if(isset($_GET['mail']) && $_GET['mail'] == 'sent'): ?>
-                <p style="color: var(--gold); font-weight: 800; border: 1px solid var(--gold); padding: 15px; display: inline-block;">✓ MESSAGE SENT</p>
-            <?php endif; ?>
+                
+                <?php if(isset($_GET['mail']) && $_GET['mail'] == 'sent'): ?>
+                    <div class="status-container">
+                        <p class="status-pill"><i class="fas fa-check" style="margin-right:10px;"></i> MESSAGE SENT</p>
+                    </div>
+                <?php endif; ?>
             </form>
         </div>
     </div>
 </section>
 
 <section id="feedback" style="border-top: 1px solid rgba(255,255,255,0.05);">
-    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">What Clients and Leadership Say
-</h3>
+    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">What Clients and Leadership Say</h3>
     <div class="feedback-grid">
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
             <div class="feedback-item">
@@ -244,7 +238,7 @@ try {
                 </p>
                 <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); display: flex; align-items: center; gap: 10px;">
                     <?php if(!empty($row['country_code'])): ?>
-                        <img src="https://flagcdn.com/w20/<?php echo strtolower($row['country_code']); ?>.png" width="20" alt="Flag">
+                        <img src="https://flagcdn.com/w20/<?php echo strtolower(htmlspecialchars($row['country_code'])); ?>.png" width="20" alt="Flag">
                     <?php endif; ?>
                     — <?php echo htmlspecialchars($row['name']); ?> 
                     <span style="color:var(--slate); opacity:0.7;">

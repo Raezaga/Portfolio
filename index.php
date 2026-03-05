@@ -7,12 +7,10 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 $offset = ($page - 1) * $limit;
 
 try {
-    // Only count reviews that you have MANUALLY APPROVED
     $total_stmt = $pdo->query("SELECT COUNT(*) FROM comments WHERE status = 'approved'");
     $total_comments = $total_stmt->fetchColumn();
     $total_pages = ceil($total_comments / $limit);
 
-    // Fetch only APPROVED reviews for the current page
     $stmt = $pdo->prepare("SELECT * FROM comments WHERE status = 'approved' ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -32,14 +30,53 @@ try {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #070a13; --card-bg: rgba(17, 24, 39, 0.7); --gold: #c5a059; --slate: #94a3b8; --white: #ffffff; --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* FONT IMPORT - Ensure the path to your Gonzaga font is correct */
+        @font-face {
+            font-family: 'Gonzaga';
+            src: url('fonts/Gonzaga.woff2') format('woff2'),
+                 url('fonts/Gonzaga.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        :root { 
+            --bg: #070a13; 
+            --card-bg: rgba(17, 24, 39, 0.7); 
+            --gold: #c5a059; 
+            --slate: #94a3b8; 
+            --white: #ffffff; 
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--slate); line-height: 1.7; overflow-x: hidden; }
 
         /* Navigation */
-        nav { position: fixed; top: 0; width: 100%; padding: 25px 8%; background: rgba(7, 10, 19, 0.9); backdrop-filter: blur(20px); display: flex; justify-content: space-between; z-index: 1000; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        nav h1 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); letter-spacing: 2px; text-transform: uppercase; }
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 20px 8%; 
+            background: rgba(7, 10, 19, 0.95); 
+            backdrop-filter: blur(20px); 
+            display: flex; 
+            justify-content: space-between; 
+            z-index: 1000; 
+            align-items: center; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        
+        /* YOUR UPDATED NAME STYLE */
+        nav h1 { 
+            font-family: 'Gonzaga', 'Playfair Display', serif; 
+            font-size: 2.4rem; 
+            color: var(--gold); 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            font-weight: 800;
+        }
+
         nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
         nav ul a { text-decoration: none; color: var(--slate); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
         nav ul a:hover { color: var(--gold); }
@@ -66,7 +103,7 @@ try {
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 40px; justify-content: center; }
         .sw-pill { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px; text-align: center; transition: var(--transition); display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .sw-pill:hover { border-color: var(--gold); background: rgba(197, 160, 89, 0.05); }
-        .sw-pill img { height: 35px; margin-bottom: 15px; object-fit: contain; }
+        .sw-pill img { margin-bottom: 15px; object-fit: contain; }
         .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; }
 
         /* Forms */
@@ -86,7 +123,13 @@ try {
 
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
-        @media (max-width: 1100px) { .hero { flex-direction: column; text-align: center; } .hero-btns { justify-content: center; flex-direction: column; } .glass-card { grid-template-columns: 1fr; } .hero-text h2 { font-size: 3.5rem; } }
+        @media (max-width: 1100px) { 
+            .hero { flex-direction: column; text-align: center; padding-top: 180px; } 
+            .hero-btns { justify-content: center; flex-direction: column; } 
+            .glass-card { grid-template-columns: 1fr; } 
+            .hero-text h2 { font-size: 3.5rem; } 
+            nav { flex-direction: column; gap: 15px; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -106,7 +149,7 @@ try {
         <div style="border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; color: var(--gold); margin-bottom: 25px; letter-spacing: 4px; font-weight: 800; font-size: 0.7rem;">17+ YEARS EXECUTIVE EXPERTISE</div>
         <h2>Transforming <span>Complex</span> Financials.</h2>
         <p style="font-size: 1.3rem; font-weight: 300; margin-bottom: 45px; max-width: 650px; color: var(--slate);">
-           Senior Accountant & Financial Operations Partner helping global businesses gain clarity, control, and confidence in their numbers.
+            Senior Accountant & Financial Operations Partner helping global businesses gain clarity, control, and confidence in their numbers.
         </p>
         <div class="hero-btns">
             <a href="#connect" class="btn-gold">Secure Partnership</a>
@@ -124,23 +167,23 @@ try {
     </div>
     <div class="sw-grid">
         <div class="sw-pill">
-            <img src="Netsuite.png" alt="NetSuite" width: 120px;">
+            <img src="Netsuite.png" alt="NetSuite" style="filter: brightness(0) invert(1); width: 120px;">
             <span>NETSUITE</span>
         </div>
         <div class="sw-pill">
-            <img src="Quickbooks.png" alt="QuickBooks" width: 120px;">
+            <img src="Quickbooks.png" alt="QuickBooks" style="filter: brightness(0) invert(1); width: 120px;">
             <span>QUICKBOOKS</span>
         </div>
         <div class="sw-pill">
-            <img src="xero.png" alt="Xero" style=" width: 45px;">
+            <img src="xero.png" alt="Xero" style="width: 45px;">
             <span>XERO ADVISOR</span>
         </div>
         <div class="sw-pill">
-            <img src="Billcom.png" alt="Bill.com" style="width: 100px;">
+            <img src="Billcom.png" alt="Bill.com" style="filter: brightness(0) invert(1); width: 100px;">
             <span>BILL.COM / DEXT</span>
         </div>
         <div class="sw-pill">
-            <img src="Salesforce.png" alt="Salesforce" style="width: 100px;">
+            <img src="Salesforce.png" alt="Salesforce" style="filter: brightness(0) invert(1); width: 100px;">
             <span>SALESFORCE</span>
         </div>
         <div class="sw-pill">
@@ -148,7 +191,7 @@ try {
             <span>CLICKUP</span>
         </div>
         <div class="sw-pill">
-            <img src="FQ.png" alt="FloQast" style="width: 100px;">
+            <img src="FQ.png" alt="FloQast" style="filter: brightness(0) invert(1); width: 100px;">
             <span>FLOQAST</span>
         </div>
     </div>
@@ -237,12 +280,10 @@ try {
 </footer>
 
 <script>
-    // FULL GLOBAL COUNTRY LIST
     const countries = {
         "af": "Afghanistan", "al": "Albania", "dz": "Algeria", "as": "American Samoa", "ad": "Andorra", "ao": "Angola", "ai": "Anguilla", "ag": "Antigua and Barbuda", "ar": "Argentina", "am": "Armenia", "au": "Australia", "at": "Austria", "az": "Azerbaijan", "bs": "Bahamas", "bh": "Bahrain", "bd": "Bangladesh", "bb": "Barbados", "by": "Belarus", "be": "Belgium", "bz": "Belize", "bj": "Benin", "bm": "Bermuda", "bt": "Bhutan", "bo": "Bolivia", "ba": "Bosnia and Herzegovina", "bw": "Botswana", "br": "Brazil", "bn": "Brunei", "bg": "Bulgaria", "bf": "Burkina Faso", "bi": "Burundi", "kh": "Cambodia", "cm": "Cameroon", "ca": "Canada", "cv": "Cape Verde", "ky": "Cayman Islands", "cf": "Central African Republic", "td": "Chad", "cl": "Chile", "cn": "China", "co": "Colombia", "km": "Comoros", "cg": "Congo", "ck": "Cook Islands", "cr": "Costa Rica", "hr": "Croatia", "cu": "Cuba", "cy": "Cyprus", "cz": "Czech Republic", "dk": "Denmark", "dj": "Djibouti", "dm": "Dominica", "do": "Dominican Republic", "ec": "Ecuador", "eg": "Egypt", "sv": "El Salvador", "gq": "Equatorial Guinea", "er": "Eritrea", "ee": "Estonia", "et": "Ethiopia", "fj": "Fiji", "fi": "Finland", "fr": "France", "ga": "Gabon", "gm": "Gambia", "ge": "Georgia", "de": "Germany", "gh": "Ghana", "gr": "Greece", "gd": "Grenada", "gu": "Guam", "gt": "Guatemala", "gn": "Guinea", "gw": "Guinea-Bissau", "gy": "Guyana", "ht": "Haiti", "hn": "Honduras", "hk": "Hong Kong", "hu": "Hungary", "is": "Iceland", "in": "India", "id": "Indonesia", "ir": "Iran", "iq": "Iraq", "ie": "Ireland", "il": "Israel", "it": "Italy", "jm": "Jamaica", "jp": "Japan", "jo": "Jordan", "kz": "Kazakhstan", "ke": "Kenya", "ki": "Kiribati", "kp": "North Korea", "kr": "South Korea", "kw": "Kuwait", "kg": "Kyrgyzstan", "la": "Laos", "lv": "Latvia", "lb": "Lebanon", "ls": "Lesotho", "lr": "Liberia", "ly": "Libya", "li": "Liechtenstein", "lt": "Lithuania", "lu": "Luxembourg", "mo": "Macao", "mk": "North Macedonia", "mg": "Madagascar", "mw": "Malawi", "my": "Malaysia", "mv": "Maldives", "ml": "Mali", "mt": "Malta", "mh": "Marshall Islands", "mq": "Martinique", "mr": "Mauritania", "mu": "Mauritius", "mx": "Mexico", "fm": "Micronesia", "md": "Moldova", "mc": "Monaco", "mn": "Mongolia", "me": "Montenegro", "ms": "Montserrat", "ma": "Morocco", "mz": "Mozambique", "mm": "Myanmar", "na": "Namibia", "nr": "Nauru", "np": "Nepal", "nl": "Netherlands", "nz": "New Zealand", "ni": "Nicaragua", "ne": "Niger", "ng": "Nigeria", "nu": "Nuue", "no": "Norway", "om": "Oman", "pk": "Pakistan", "pw": "Palau", "ps": "Palestine", "pa": "Panama", "pg": "Papua New Guinea", "py": "Paraguay", "pe": "Peru", "ph": "Philippines", "pl": "Poland", "pt": "Portugal", "pr": "Puerto Rico", "qa": "Qatar", "re": "Reunion", "ro": "Romania", "ru": "Russia", "rw": "Rwanda", "kn": "Saint Kitts and Nevis", "lc": "Saint Lucia", "vc": "Saint Vincent", "ws": "Samoa", "sm": "San Marino", "st": "Sao Tome and Principe", "sa": "Saudi Arabia", "sn": "Senegal", "rs": "Serbia", "sc": "Seychelles", "sl": "Sierra Leone", "sg": "Singapore", "sk": "Slovakia", "si": "Slovenia", "sb": "Solomon Islands", "so": "Somalia", "za": "South Africa", "es": "Spain", "lk": "Sri Lanka", "sd": "Sudan", "sr": "Suriname", "sz": "Swaziland", "se": "Sweden", "ch": "Switzerland", "sy": "Syria", "tw": "Taiwan", "tj": "Tajikistan", "tz": "Tanzania", "th": "Thailand", "tl": "Timor-Leste", "tg": "Togo", "tk": "Tokelau", "to": "Tonga", "tt": "Trinidad and Barbuda", "tn": "Tunisia", "tr": "Turkey", "tm": "Turkmenistan", "tv": "Tuvalu", "ug": "Uganda", "ua": "Ukraine", "ae": "United Arab Emirates", "gb": "United Kingdom", "us": "United States", "uy": "Uruguay", "uz": "Uzbekistan", "vu": "Vanuatu", "ve": "Venezuela", "vn": "Vietnam", "vg": "Virgin Islands, British", "vi": "Virgin Islands, U.S.", "ye": "Yemen", "zm": "Zambia", "zw": "Zimbabwe"
     };
 
-    // Populate Select Dropdown
     const countrySelect = document.getElementById('countrySelect');
     for (const [code, name] of Object.entries(countries)) {
         const option = document.createElement('option');
@@ -251,7 +292,6 @@ try {
         countrySelect.appendChild(option);
     }
 
-    // Form Submission Logic
     document.getElementById('reviewForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('reviewBtn');
@@ -272,7 +312,3 @@ try {
 </script>
 </body>
 </html>
-
-
-
-

@@ -57,45 +57,54 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
     <style>
         :root { --gold: #c5a059; --bg: #070a13; --card: rgba(255,255,255,0.02); --text: #94a3b8; --border: rgba(255,255,255,0.07); }
         
-        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 30px; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; animation: slideUp 0.6s ease-out; }
+        body { background: var(--bg); color: var(--text); font-family: \'Plus Jakarta Sans\', sans-serif; margin: 0; padding: 30px; line-height: 1.6; }
+        .container { max-width: 1300px; margin: 0 auto; animation: slideUp 0.6s ease-out; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Header */
         .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; }
-        .header h1 { color: white; font-size: 1.8rem; letter-spacing: -1px; font-weight: 800; }
+        .header h1 { color: white; font-size: 1.8rem; letter-spacing: -1px; font-weight: 800; margin: 0; }
         .header span { color: var(--gold); }
         .nav-links a { color: var(--text); text-decoration: none; margin-left: 25px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { color: white; }
         .logout { color: #ef4444 !important; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 5px; }
-        .logout:hover { background: #ef4444; color: white !important; }
 
-        /* Table Design with Effects */
         .table-container { background: var(--card); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
         th { text-align: left; padding: 25px 20px; background: rgba(255,255,255,0.03); color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
         
         tr { transition: 0.3s; }
         tr:hover { background: rgba(255,255,255,0.03); }
-        td { padding: 25px 20px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        td { padding: 25px 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         
-        /* Elements */
-        .reviewer-name { color: white; font-weight: 700; font-size: 1.1rem; }
-        .reviewer-pos { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; display: block; margin-top: 5px; letter-spacing: 1px; }
-        .reviewer-co { font-size: 0.8rem; opacity: 0.5; display: block; margin-top: 2px; }
+        .reviewer-name { color: white; font-weight: 700; font-size: 1rem; }
+        .reviewer-co { font-size: 0.8rem; opacity: 0.5; display: block; }
         
-        .review-text { color: #cbd5e1; font-style: italic; max-width: 450px; font-size: 0.95rem; line-height: 1.8; }
+        /* New Position Tab Style */
+        .reviewer-pos { 
+            color: var(--gold); 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+            background: rgba(197, 160, 89, 0.05);
+            padding: 6px 12px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .review-text { color: #cbd5e1; font-style: italic; font-size: 0.9rem; line-height: 1.6; max-width: 350px; }
 
         .status-badge { padding: 6px 12px; border-radius: 100px; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; display: inline-block; }
         .status-pending { background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
         .status-approved { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
 
-        .btn-circle { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); }
+        .btn-circle { width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); }
         .btn-approve { background: rgba(197, 160, 89, 0.1); color: var(--gold); }
-        .btn-approve:hover { background: var(--gold); color: var(--bg); transform: rotate(15deg); }
-        .btn-delete { color: #ef4444; margin-left: 10px; }
-        .btn-delete:hover { background: #ef4444; color: white; }
+        .btn-approve:hover { background: var(--gold); color: var(--bg); transform: translateY(-3px); }
+        .btn-delete { color: #ef4444; margin-left: 8px; }
+        .btn-delete:hover { background: #ef4444; color: white; transform: translateY(-3px); }
 
         @media (max-width: 768px) {
             .header { flex-direction: column; text-align: center; gap: 20px; }
@@ -106,9 +115,9 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
 <body>
     <div class="container">
         <div class="header">
-            <h1>AFRYL <span>MODERATION</span></h1>
+            <h1>AFRYL <span>DASHBOARD</span></h1>
             <div class="nav-links">
-                <a href="index.php"><i class="fas fa-external-link-alt"></i> Public Site</a>
+                <a href="index.php"><i class="fas fa-external-link-alt"></i> Site</a>
                 <a href="?logout=true" class="logout">Logout</a>
             </div>
         </div>
@@ -117,11 +126,11 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
             <table>
                 <thead>
                     <tr>
-                        <th>Executive</th>
-                        <th>Origin</th>
+                        <th>Client / Company</th>
+                        <th>Professional Title</th> <th>Region</th>
                         <th>Testimonial</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Manage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,16 +138,18 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
                     <tr>
                         <td>
                             <span class="reviewer-name"><?= htmlspecialchars($item['name']) ?></span>
-                            <span class="reviewer-pos"><?= htmlspecialchars($item['position'] ?? 'No Title') ?></span>
                             <span class="reviewer-co"><?= htmlspecialchars($item['company']) ?></span>
                         </td>
                         <td>
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="reviewer-pos"><?= htmlspecialchars($item['position'] ?? 'Member') ?></span>
+                        </td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:8px;">
                                 <?php if(!empty($item['country_code'])): ?>
-                                    <img src="https://flagcdn.com/w40/<?= strtolower($item['country_code']) ?>.png" width="25" style="border-radius:3px; filter: grayscale(20%);">
+                                    <img src="https://flagcdn.com/w20/<?= strtolower($item['country_code']) ?>.png" width="20" style="border-radius:2px;">
                                     <span style="color:white; font-size:0.75rem; font-weight:800;"><?= strtoupper($item['country_code']) ?></span>
                                 <?php else: ?>
-                                    <span style="opacity:0.2;">N/A</span>
+                                    <span style="opacity:0.2;">—</span>
                                 <?php endif; ?>
                             </div>
                         </td>
@@ -151,11 +162,11 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
                         <td>
                             <div style="display:flex; align-items:center;">
                                 <?php if($item['status'] == 'pending'): ?>
-                                    <a href="?action=approve&id=<?= $item['id'] ?>" class="btn-circle btn-approve" title="Approve Review">
+                                    <a href="?action=approve&id=<?= $item['id'] ?>" class="btn-circle btn-approve" title="Approve">
                                         <i class="fas fa-check"></i>
                                     </a>
                                 <?php endif; ?>
-                                <a href="?action=delete&id=<?= $item['id'] ?>" class="btn-circle btn-delete" title="Delete Review" onclick="return confirm('Confirm permanent deletion?')">
+                                <a href="?action=delete&id=<?= $item['id'] ?>" class="btn-circle btn-delete" title="Remove" onclick="return confirm(\'Delete this entry?\')">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>

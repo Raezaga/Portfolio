@@ -194,11 +194,6 @@ try {
 <section id="connect">
     <div class="glass-card">
         <div class="connect-info">
-            <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1;">Let's Connect</h3>
-            <p style="margin: 25px 0; font-size: 1.1rem;">Secure financial partnership for international entities.</p>
-            <?php if(isset($_GET['mail']) && $_GET['mail'] == 'sent'): ?>
-                <p style="color: var(--gold); font-weight: 800; border: 1px solid var(--gold); padding: 15px; display: inline-block;">✓ MESSAGE SENT</p>
-            <?php endif; ?>
         </div>
         <div class="form-box">
             <form action="send_email.php" method="POST">
@@ -209,6 +204,9 @@ try {
                 <input type="email" name="email" placeholder="Professional Email" required>
                 <textarea name="message" rows="4" placeholder="How can I assist your financials?" required></textarea>
                 <button type="submit" class="btn-gold" style="width: 100%;">Send Inquiry</button>
+            <?php if(isset($_GET['mail']) && $_GET['mail'] == 'sent'): ?>
+                <p style="color: var(--gold); font-weight: 800; border: 1px solid var(--gold); padding: 15px; display: inline-block;">✓ MESSAGE SENT</p>
+            <?php endif; ?>
             </form>
         </div>
     </div>
@@ -308,4 +306,5 @@ try {
 </script>
 </body>
 </html>
+
 

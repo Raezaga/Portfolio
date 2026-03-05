@@ -26,23 +26,22 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afryl Lou Okit | Senior Accountant & Financial Operations Partner</title>
+    <title>Afryl Lou Okit | Senior Accountant (17+ Years Experience)</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg-deep: #0a101e; /* Deep Obsidian Navy */
-            --bg-accent: #111827; /* Slightly Lighter for Blocks */
-            --gold: #c5a059; /* Champagne Gold */
-            --slate: #94a3b8; /* Soft Gray for Text */
+            --bg-deep: #0a101e; 
+            --bg-accent: #111827; 
+            --gold: #c5a059; 
+            --slate: #94a3b8; 
             --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--slate); background: var(--bg-deep); line-height: 1.8; }
+        body { font-family: 'Inter', sans-serif; color: var(--slate); background: var(--bg-deep); line-height: 1.8; overflow-x: hidden; }
 
-        /* Premium Navigation (Matches Background) */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 25px 8%; 
             background: rgba(10, 16, 30, 0.95); backdrop-filter: blur(15px); 
@@ -56,79 +55,73 @@ try {
 
         section { padding: 160px 10% 100px; max-width: 1600px; margin: 0 auto; }
 
-        /* Hero: Ultra-Elegance */
+        /* HERO AREA */
         .hero { display: flex; align-items: center; gap: 80px; min-height: 90vh; }
-        .hero-text { flex: 1.2; }
+        .hero-text { flex: 1.3; }
         
-        .hero-text .title-badge { 
-            font-size: 0.8rem; font-weight: 600; color: var(--gold); 
-            text-transform: uppercase; letter-spacing: 5px; display: block; margin-bottom: 20px; 
+        .experience-seal {
+            display: inline-flex; align-items: center; gap: 15px;
+            padding: 10px 20px; border: 1px solid rgba(197, 160, 89, 0.3);
+            background: rgba(197, 160, 89, 0.05); color: var(--gold);
+            font-weight: 700; font-size: 0.8rem; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 30px;
         }
 
         .hero-text h2 { 
-            font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--white); 
-            margin-bottom: 25px; line-height: 1.1; font-weight: 700; letter-spacing: -2px;
+            font-family: 'Playfair Display', serif; font-size: 5.5rem; color: var(--white); 
+            margin-bottom: 25px; line-height: 1; font-weight: 700; letter-spacing: -3px;
         }
         .hero-text h2 span { color: var(--gold); font-style: italic; }
 
-        .hero-text p { font-size: 1.2rem; color: var(--slate); max-width: 600px; margin-bottom: 45px; font-weight: 300; }
-
-        .hero-image { flex: 0.8; position: relative; }
-        .hero-image img { 
-            width: 100%; aspect-ratio: 1/1; border-radius: 4px; 
-            box-shadow: 40px -40px 0px -10px rgba(255,255,255,0.03), 40px -40px 0px -9px var(--gold);
-            filter: grayscale(15%) contrast(105%);
+        /* CIRCULAR PHOTO WITH ORBIT */
+        .hero-image { flex: 0.7; position: relative; display: flex; justify-content: center; }
+        .hero-image .img-wrapper {
+            position: relative; width: 100%; max-width: 450px; aspect-ratio: 1/1;
         }
+        .hero-image img { 
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--gold); position: relative; z-index: 5;
+            filter: contrast(110%);
+        }
+        .orbit-ring {
+            position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            border: 1px solid rgba(197, 160, 89, 0.4); border-radius: 50%;
+            border-top: 1px solid var(--gold); animation: spin 20s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Gold-Only Buttons */
-        .hero-actions { display: flex; gap: 20px; align-items: center; }
+        /* BUTTONS */
+        .hero-actions { display: flex; gap: 20px; margin-top: 40px; }
         .btn-gold { 
             padding: 22px 45px; background: var(--gold); color: var(--bg-deep); 
-            border: none; border-radius: 0; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; 
+            border: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; 
             letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: 0.4s;
         }
         .btn-gold:hover { background: var(--white); transform: translateY(-3px); }
-        
         .btn-cv { 
             padding: 22px 45px; background: transparent; color: var(--gold); 
-            border: 1px solid var(--gold); border-radius: 0; font-weight: 700; font-size: 0.8rem; 
-            text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; 
+            border: 1px solid var(--gold); font-weight: 700; font-size: 0.8rem; 
+            text-transform: uppercase; letter-spacing: 3px; text-decoration: none; 
             transition: 0.4s; display: inline-flex; align-items: center; gap: 12px;
         }
-        .btn-cv:hover { background: var(--gold); color: var(--bg-deep); }
 
-        /* Grid: Matching Lighter Block */
-        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
-        .value-card { padding: 60px; background: var(--bg-accent); border: 1px solid rgba(255,255,255,0.03); border-radius: 4px; transition: 0.4s; }
+        /* GRID SYSTEM */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
+        .value-card { padding: 60px; background: var(--bg-accent); border: 1px solid rgba(255,255,255,0.03); transition: 0.4s; }
         .value-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .value-card i { font-size: 1.5rem; color: var(--gold); margin-bottom: 30px; }
-        .value-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 15px; }
+        .value-card h4 { color: var(--gold); font-size: 3.5rem; font-family: 'Playfair Display'; margin-bottom: 10px; opacity: 0.5; }
 
-        /* Systems Mastery Tags */
-        .tag-list { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 40px; }
-        .tag { 
-            padding: 10px 25px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); 
-            font-size: 0.7rem; color: var(--slate); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; 
-        }
-
-        /* Form Block (Deep Navy on Lighter Navy) */
+        /* FORM */
         .contact-block { 
             display: grid; grid-template-columns: 1fr 1fr; gap: 100px; 
-            background: var(--bg-accent); padding: 100px; margin-top: 100px; border-radius: 4px; 
+            background: var(--bg-accent); padding: 100px; margin-top: 100px; 
         }
         .form-box input, .form-box textarea { 
             width: 100%; padding: 20px 0; margin-bottom: 30px; border: none; 
             border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; 
-            color: var(--white); font-family: inherit; outline: none; transition: 0.3s;
+            color: var(--white); outline: none; transition: 0.3s;
         }
         .form-box input:focus { border-bottom-color: var(--gold); }
-        .form-box textarea { border-bottom: 1px solid rgba(255,255,255,0.1); }
-
-        /* Feedback: Matching Block */
-        .feedback-item { 
-            background: var(--bg-accent); padding: 40px; margin-bottom: 20px; 
-            border-left: 3px solid var(--gold); border-radius: 2px;
-        }
 
         footer { text-align: center; padding: 100px 5%; font-size: 0.7rem; letter-spacing: 3px; color: var(--slate); text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.05); }
 
@@ -136,7 +129,7 @@ try {
             .hero { flex-direction: column; text-align: center; }
             .hero-text h2 { font-size: 3.5rem; }
             .contact-block { grid-template-columns: 1fr; padding: 50px; }
-            .hero-actions { flex-direction: column; align-items: center; }
+            .hero-actions { flex-direction: column; }
         }
     </style>
 </head>
@@ -146,7 +139,7 @@ try {
     <h1>AFRYL LOU OKIT / PARTNER</h1>
     <ul>
         <li><a href="#hero">Overview</a></li>
-        <li><a href="#services">Values</a></li>
+        <li><a href="#services">Specialization</a></li>
         <li><a href="#portfolio">Systems</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
@@ -154,74 +147,79 @@ try {
 
 <section id="hero" class="hero">
     <div class="hero-text">
-        <span class="title-badge">Senior Accountant / Financial Operations</span>
-        <h2>Precision in <span>Financial</span> Strategy.</h2>
-        <p>Expertly managing international portfolios, intercompany dynamics, and multi-entity complexities. I provide the accurate financials required for high-stakes business decisions.</p>
+        <div class="experience-seal">
+            <i class="fas fa-award"></i> 17+ Years of Senior Expertise
+        </div>
+        <h2>High-Stakes <span>Financial</span> Strategy.</h2>
+        <p style="font-size: 1.25rem; font-weight: 300; margin-bottom: 40px;">
+            Senior Accountant specializing in international portfolio management, multi-entity intercompany dynamics, and audit-ready operations for the US, Australia, and Middle East markets.
+        </p>
         
         <div class="hero-actions">
             <a href="#contact" class="btn-gold">Secure Partnership</a>
             <a href="Afryl_Lou_Okit_CV.pdf" download class="btn-cv">
-                <i class="fas fa-file-pdf"></i> Download Executive CV
+                <i class="fas fa-file-pdf"></i> EXECUTIVE CV
             </a>
         </div>
     </div>
     <div class="hero-image">
-        <img src="afryl.jpg" alt="Afryl Lou Okit">
+        <div class="img-wrapper">
+            <div class="orbit-ring"></div>
+            <img src="Afryl.jpg" alt="Afryl Lou Okit">
+        </div>
     </div>
 </section>
 
-<section id="services" style="background: var(--bg-accent); border-top: 1px solid rgba(255,255,255,0.03);">
-    <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--white); margin-bottom: 60px;">Core Strategic Values</h2>
-    <div class="values-grid">
+<section id="services" style="background: var(--bg-accent);">
+    <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--white); margin-bottom: 60px;">Two Decades of Excellence</h2>
+    <div class="grid">
         <div class="value-card">
-            <i class="fas fa-shield-check"></i>
-            <h3>Audit-Ready Integrity</h3>
-            <p>We move past simple bookkeeping. I establish rigorous, audit-ready financial frameworks that ensure institutional-level compliance.</p>
+            <h4>17+</h4>
+            <h3 style="color: var(--white); font-size: 1.5rem; margin-bottom: 15px;">Years Experience</h3>
+            <p>A career built on precision, navigating evolving global accounting standards and complex tax landscapes.</p>
         </div>
         <div class="value-card">
-            <i class="fas fa-gem"></i>
-            <h3>Strategic Insight</h3>
-            <p>Raw data is just noise. I distill complex financial operations into actionable intelligence that accelerates global business growth.</p>
+            <h4>03</h4>
+            <h3 style="color: var(--white); font-size: 1.5rem; margin-bottom: 15px;">Global Regions</h3>
+            <p>Proven track record supporting major international businesses across the United States, Australia, and the UAE.</p>
         </div>
         <div class="value-card">
-            <i class="fas fa-infinity"></i>
-            <h3>Operational Excellence</h3>
-            <p>Implementing scalable systems designed to grow with your revenue, utilizing industry-leading tech stacks (NetSuite, Floqast).</p>
+            <h4>∞</h4>
+            <h3 style="color: var(--white); font-size: 1.5rem; margin-bottom: 15px;">Unmatched Clarity</h3>
+            <p>Transforming complex financial disorder into decision-ready data that fuels aggressive business growth.</p>
         </div>
     </div>
 </section>
 
 <section id="portfolio">
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--white); margin-bottom: 15px;">System Mastery</h2>
-    <p style="color: var(--slate); margin-bottom: 40px; font-weight: 300;">Proficiency in leading financial and operational platforms.</p>
-    <div class="tag-list">
-        <span class="tag">NetSuite</span> <span class="tag">QuickBooks Online</span> <span class="tag">Xero</span> 
-        <span class="tag">Floqast</span> <span class="tag">Stripe</span> <span class="tag">Salesforce</span> 
-        <span class="tag">Dext</span> <span class="tag">Bill.com</span> <span class="tag">ClickUp</span>
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--white); margin-bottom: 40px;">Expert-Level Systems</h2>
+    <div class="tag-list" style="display:flex; flex-wrap:wrap; gap:15px;">
+        <span style="padding:10px 25px; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem; font-weight:700; letter-spacing:2px; color:var(--gold);">NETSUITE</span>
+        <span style="padding:10px 25px; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem; font-weight:700; letter-spacing:2px; color:var(--white);">QUICKBOOKS</span>
+        <span style="padding:10px 25px; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem; font-weight:700; letter-spacing:2px; color:var(--white);">XERO</span>
+        <span style="padding:10px 25px; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem; font-weight:700; letter-spacing:2px; color:var(--white);">FLOQAST</span>
+        <span style="padding:10px 25px; border:1px solid rgba(255,255,255,0.1); font-size:0.7rem; font-weight:700; letter-spacing:2px; color:var(--white);">STRIPE</span>
     </div>
 
-    <div style="margin-top: 100px; padding: 60px; border: 1px solid var(--gold); border-radius: 4px; position: relative; background: var(--bg-accent);">
-        <span style="position: absolute; top: -11px; left: 30px; background: var(--bg-deep); padding: 0 10px; color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Featured Experience</span>
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); margin-bottom: 10px;">Bluesky Investments LLC</h3>
-        <p style="color: var(--gold); font-weight: 600; font-size: 1rem; margin-bottom: 25px;">Finance & Accounting Lead / 2018 — Present</p>
-        <p style="color: var(--slate); max-width: 800px; font-weight: 300;">Directing end-to-end multi-entity financial operations, ensuring precise intercompany transactional mappings and predictive budget modeling.</p>
+    <div style="margin-top: 100px; padding: 70px; border: 1px solid var(--gold); background: var(--bg-accent);">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--white); margin-bottom: 10px;">Bluesky Investments LLC</h3>
+        <p style="color: var(--gold); font-weight: 700; margin-bottom: 25px;">Finance Lead / 2018 — Present</p>
+        <p style="font-weight: 300;">Management of end-to-end multi-entity financial operations, ensuring precise intercompany transactional mappings and predictive budget modeling.</p>
     </div>
 </section>
 
 <section id="contact" style="padding: 0;">
     <div class="contact-block">
         <div>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--white); margin-bottom: 30px; line-height: 1;">Let's Initiate a Conversation.</h2>
-            <p style="color: var(--slate); margin-bottom: 50px;">Ready to discuss your financial operational requirements?</p>
-            <p style="font-size: 0.8rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 5px;">EMAIL</p>
-            <p style="font-size: 1.1rem; color: var(--white); margin-bottom: 25px;">afryllou.consulting@gmail.com</p>
-            <p style="font-size: 0.8rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 5px;">PHONE</p>
-            <p style="font-size: 1.1rem; color: var(--white);">+63 999 586 61908</p>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--white); margin-bottom: 30px; line-height: 1;">Let's Connect.</h2>
+            <p style="color: var(--slate); margin-bottom: 50px;">Bespoke financial partnership for international entities.</p>
+            <p style="font-size: 0.8rem; color: var(--gold); margin-bottom: 10px;">EMAIL</p>
+            <p style="font-size: 1.1rem; color: var(--white);">afryllou.consulting@gmail.com</p>
         </div>
         <div class="form-box">
             <form id="commentForm">
                 <input type="text" name="name" placeholder="Full Name" required>
-                <input type="text" name="company" placeholder="Entity / Company Name" required>
+                <input type="text" name="company" placeholder="Company Name" required>
                 <textarea name="comment_text" rows="4" placeholder="Brief details of your financial complexity..." required></textarea>
                 <button type="submit" id="commentBtn" class="btn-gold" style="width: 100%;">Submit Inquiry</button>
             </form>
@@ -229,26 +227,8 @@ try {
     </div>
 </section>
 
-<section id="feedback" style="padding-top: 100px;">
-    <h3 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--white); margin-bottom: 50px; text-align: center;">Executive Feedback</h3>
-    <div id="comments-list">
-        <?php if (empty($comments)): ?>
-            <p style="text-align: center; color: var(--slate);">Consultations in progress.</p>
-        <?php else: ?>
-            <?php foreach ($comments as $row): ?>
-                <div class="feedback-item">
-                    <p style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); font-style: italic;">"<?php echo htmlspecialchars($row['comment_text']); ?>"</p>
-                    <p style="margin-top: 15px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold);">
-                        — <?php echo htmlspecialchars($row['name']); ?> / <?php echo htmlspecialchars($row['company']); ?>
-                    </p>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</section>
-
 <footer>
-    &copy; <?php echo date("Y"); ?> AFRYL LOU OKIT. PARTNER-GRADE FINANCIALS.
+    &copy; <?php echo date("Y"); ?> AFRYL LOU OKIT. SENIOR FINANCIAL OPERATIONS.
 </footer>
 
 <script>
@@ -273,4 +253,3 @@ try {
 </script>
 </body>
 </html>
-

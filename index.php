@@ -227,7 +227,7 @@ try {
 </section>
 
 <section id="feedback" style="border-top: 1px solid rgba(255,255,255,0.05);">
-    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">Executive Proof</h3>
+    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">What Clients and Leadership Say</h3>
     
     <div class="feedback-grid">
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
@@ -318,5 +318,6 @@ try {
 </script>
 </body>
 </html>
+
 
 

@@ -166,7 +166,7 @@ try {
         </div>
     </div>
     <div class="hero-image">
-        <img src="Afryl.jpg" alt="Afryl Lou Okit">
+        <img src="afryl.jpg" alt="Afryl Lou Okit">
     </div>
 </section>
 
@@ -273,3 +273,4 @@ try {
 </script>
 </body>
 </html>
+

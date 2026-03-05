@@ -52,13 +52,13 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moderation | Afryl Lou Okit</title>
+    <title>Executive Moderation | Afryl Lou Okit</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --gold: #c5a059; --bg: #070a13; --card: rgba(255,255,255,0.02); --text: #94a3b8; --border: rgba(255,255,255,0.07); }
         
-        body { background: var(--bg); color: var(--text); font-family: \'Plus Jakarta Sans\', sans-serif; margin: 0; padding: 30px; line-height: 1.6; }
-        .container { max-width: 1300px; margin: 0 auto; animation: slideUp 0.6s ease-out; }
+        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 30px; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; animation: slideUp 0.6s ease-out; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -70,7 +70,7 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         .logout { color: #ef4444 !important; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 5px; }
 
         .table-container { background: var(--card); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         th { text-align: left; padding: 25px 20px; background: rgba(255,255,255,0.03); color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
         
         tr { transition: 0.3s; }
@@ -78,9 +78,8 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         td { padding: 25px 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         
         .reviewer-name { color: white; font-weight: 700; font-size: 1rem; }
-        .reviewer-co { font-size: 0.8rem; opacity: 0.5; display: block; }
         
-        /* New Position Tab Style */
+        /* Position Column Style */
         .reviewer-pos { 
             color: var(--gold); 
             font-size: 0.75rem; 
@@ -91,10 +90,17 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
             padding: 6px 12px;
             border: 1px solid rgba(197, 160, 89, 0.1);
             border-radius: 4px;
-            display: inline-block;
+        }
+
+        /* Company Column Style */
+        .reviewer-co { 
+            color: #ffffff; 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            opacity: 0.8;
         }
         
-        .review-text { color: #cbd5e1; font-style: italic; font-size: 0.9rem; line-height: 1.6; max-width: 350px; }
+        .review-text { color: #cbd5e1; font-style: italic; font-size: 0.9rem; line-height: 1.6; max-width: 300px; }
 
         .status-badge { padding: 6px 12px; border-radius: 100px; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; display: inline-block; }
         .status-pending { background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
@@ -115,9 +121,9 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
 <body>
     <div class="container">
         <div class="header">
-            <h1>AFRYL <span>DASHBOARD</span></h1>
+            <h1>AFRYL <span>PARTNERS</span></h1>
             <div class="nav-links">
-                <a href="index.php"><i class="fas fa-external-link-alt"></i> Site</a>
+                <a href="index.php"><i class="fas fa-home"></i> Dashboard</a>
                 <a href="?logout=true" class="logout">Logout</a>
             </div>
         </div>
@@ -126,23 +132,20 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
             <table>
                 <thead>
                     <tr>
-                        <th>Client / Company</th>
-                        <th>Professional Title</th> <th>Region</th>
+                        <th>Client Name</th>
+                        <th>Professional Title</th>
+                        <th>Organization</th> <th>Region</th>
                         <th>Testimonial</th>
                         <th>Status</th>
-                        <th>Manage</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($list as $item): ?>
                     <tr>
-                        <td>
-                            <span class="reviewer-name"><?= htmlspecialchars($item['name']) ?></span>
-                            <span class="reviewer-co"><?= htmlspecialchars($item['company']) ?></span>
-                        </td>
-                        <td>
-                            <span class="reviewer-pos"><?= htmlspecialchars($item['position'] ?? 'Member') ?></span>
-                        </td>
+                        <td><span class="reviewer-name"><?= htmlspecialchars($item['name']) ?></span></td>
+                        <td><span class="reviewer-pos"><?= htmlspecialchars($item['position'] ?? 'Consultant') ?></span></td>
+                        <td><span class="reviewer-co"><?= htmlspecialchars($item['company']) ?></span></td>
                         <td>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <?php if(!empty($item['country_code'])): ?>
@@ -166,7 +169,7 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
                                         <i class="fas fa-check"></i>
                                     </a>
                                 <?php endif; ?>
-                                <a href="?action=delete&id=<?= $item['id'] ?>" class="btn-circle btn-delete" title="Remove" onclick="return confirm(\'Delete this entry?\')">
+                                <a href="?action=delete&id=<?= $item['id'] ?>" class="btn-circle btn-delete" title="Remove" onclick="return confirm('Delete this record permanently?')">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>

@@ -88,8 +88,13 @@ try {
 <body>
 
 <nav>
-    <h1>AFRYL LOU OKIT / PARTNER</h1>
-    <ul><li><a href="#hero">Overview</a></li><li><a href="#connect">Connect</a></li><li><a href="#feedback">Validation</a></li></ul>
+    <h1>AFRYL LOU OKIT</h1>
+    <ul>
+        <li><a href="#hero">Overview</a></li>
+        <li><a href="#connect">Connect</a></li>
+        <li><a href="#feedback">Validation</a></li>
+        <li><a href="admin.php">Admin</a></li>
+    </ul>
 </nav>
 
 <section id="hero" class="hero">
@@ -194,3 +199,4 @@ try {
 </script>
 </body>
 </html>
+

@@ -152,7 +152,7 @@ try {
     <ul>
         <li><a href="#hero">Overview</a></li>
         <li><a href="#connect">Connect</a></li>
-        <li><a href="#feedback">Validation</a></li>
+        <li><a href="#feedback">Reviews</a></li>
         <li><a href="admin.php" class="nav-admin">Admin Portal</a></li>
     </ul>
 </nav>
@@ -211,7 +211,8 @@ try {
 </section>
 
 <section id="feedback" style="border-top: 1px solid rgba(255,255,255,0.05);">
-    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">Validation</h3>
+    <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">What Clients and Leadership Say
+</h3>
     <div class="feedback-grid">
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
             <div class="feedback-item">
@@ -230,7 +231,7 @@ try {
                 </p>
             </div>
         <?php endforeach; else: ?>
-            <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting professional validation.</p>
+            <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting professional Reviews.</p>
         <?php endif; ?>
     </div>
 
@@ -304,6 +305,7 @@ try {
 </script>
 </body>
 </html>
+
 
 
 

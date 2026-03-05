@@ -124,31 +124,31 @@ try {
     </div>
     <div class="sw-grid">
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/netsuite/netsuite-ar21.svg" alt="NetSuite" style="filter: brightness(0) invert(1); width: 120px;">
+            <img src="Netsuite.png" alt="NetSuite" style="filter: brightness(0) invert(1); width: 120px;">
             <span>NETSUITE</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/intuit_quickbooks/intuit_quickbooks-ar21.svg" alt="QuickBooks" style="filter: brightness(0) invert(1); width: 120px;">
+            <img src="Quickbooks.png" alt="QuickBooks" style="filter: brightness(0) invert(1); width: 120px;">
             <span>QUICKBOOKS</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/xero/xero-icon.svg" alt="Xero" style="width: 45px;">
+            <img src="xero.png" alt="Xero" style="width: 45px;">
             <span>XERO ADVISOR</span>
         </div>
         <div class="sw-pill">
-            <img src="https://cdn.worldvectorlogo.com/logos/bill-com-1.svg" alt="Bill.com" style="filter: brightness(0) invert(1); width: 100px;">
+            <img src="Billcom.png" alt="Bill.com" style="filter: brightness(0) invert(1); width: 100px;">
             <span>BILL.COM / DEXT</span>
         </div>
         <div class="sw-pill">
-            <img src="https://logo.clearbit.com/voyage.com" alt="Voyage" style="filter: brightness(0) invert(1); width: 100px;">
-            <span>VOYAGE</span>
+            <img src="Salesforce.png" alt="Voyage" style="filter: brightness(0) invert(1); width: 100px;">
+            <span>SALESFORCE</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/clickup/clickup-ar21.svg" alt="ClickUp" style="width: 120px;">
+            <img src="clickup.png" alt="ClickUp" style="width: 120px;">
             <span>CLICKUP</span>
         </div>
         <div class="sw-pill">
-            <img src="https://logo.clearbit.com/floqast.com" alt="FloQast" style="filter: brightness(0) invert(1); width: 100px;">
+            <img src="FQ.png" alt="FloQast" style="filter: brightness(0) invert(1); width: 100px;">
             <span>FLOQAST</span>
         </div>
     </div>
@@ -272,4 +272,5 @@ try {
 </script>
 </body>
 </html>
+
 

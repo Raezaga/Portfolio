@@ -165,7 +165,7 @@ try {
     <div class="hero-image">
         <div class="img-wrapper">
             <div class="orbit-ring"></div>
-            <img src="Afryl.jpg" alt="Afryl Lou Okit">
+            <img src="afryl.jpg" alt="Afryl Lou Okit">
         </div>
     </div>
 </section>
@@ -253,3 +253,4 @@ try {
 </script>
 </body>
 </html>
+

@@ -31,6 +31,8 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         th { text-align: left; color: #c5a059; padding: 15px; border-bottom: 2px solid #222; font-size: 0.8rem; }
         td { padding: 15px; border-bottom: 1px solid #222; }
         .flag-box { display: flex; align-items: center; gap: 8px; font-weight: bold; color: white; }
+        .pos-text { color: #c5a059; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .co-text { opacity: 0.6; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -44,8 +46,9 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
     <table>
         <thead>
             <tr>
-                <th>User & Company</th>
-                <th>Country</th> <th>Review</th>
+                <th>Profile & Role</th>
+                <th>Country</th> 
+                <th>Review</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -53,7 +56,11 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         <tbody>
             <?php foreach($list as $item): ?>
             <tr>
-                <td><strong><?= htmlspecialchars($item['name']) ?></strong><br><small><?= htmlspecialchars($item['company']) ?></small></td>
+                <td>
+                    <strong><?= htmlspecialchars($item['name']) ?></strong><br>
+                    <span class="pos-text"><?= htmlspecialchars($item['position'] ?? 'No Title') ?></span><br>
+                    <span class="co-text"><?= htmlspecialchars($item['company']) ?></span>
+                </td>
                 <td>
                     <div class="flag-box">
                         <?php if(!empty($item['country_code'])): ?>
@@ -64,13 +71,15 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
                         <?php endif; ?>
                     </div>
                 </td>
-                <td style="font-style:italic;">"<?= htmlspecialchars($item['comment_text']) ?>"</td>
-                <td style="color:<?= $item['status']=='approved'?'#4ade80':'#fbbf24' ?>"><?= strtoupper($item['status']) ?></td>
+                <td style="font-style:italic; font-size: 0.9rem;">"<?= htmlspecialchars($item['comment_text']) ?>"</td>
+                <td style="color:<?= $item['status']=='approved'?'#4ade80':'#fbbf24' ?>; font-weight: bold; font-size: 0.7rem;">
+                    <?= strtoupper($item['status']) ?>
+                </td>
                 <td>
                     <?php if($item['status'] == 'pending'): ?>
-                        <a href="?action=approve&id=<?= $item['id'] ?>" style="color:#c5a059;">Approve</a> | 
+                        <a href="?action=approve&id=<?= $item['id'] ?>" style="color:#4ade80; text-decoration:none; font-weight:bold;">APPROVE</a> | 
                     <?php endif; ?>
-                    <a href="?action=delete&id=<?= $item['id'] ?>" style="color:#ef4444;" onclick="return confirm('Delete?')">Delete</a>
+                    <a href="?action=delete&id=<?= $item['id'] ?>" style="color:#ef4444; text-decoration:none;" onclick="return confirm('Delete permanently?')">Delete</a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -78,4 +87,3 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
     </table>
 </body>
 </html>
-

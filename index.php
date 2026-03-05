@@ -35,26 +35,51 @@ try {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+        
         nav { position: fixed; top: 0; width: 100%; padding: 20px 5%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; z-index: 100; align-items: center; }
         nav h1 { font-family: 'Plus Jakarta Sans'; font-size: 1.1rem; font-weight: 800; color: var(--primary); }
         nav ul { display: flex; list-style: none; gap: 25px; }
         nav ul a { text-decoration: none; color: var(--text-dim); font-weight: 600; font-size: 0.85rem; }
-        section { padding: 120px 8% 80px; max-width: 1300px; margin: 0 auto; }
-        .hero { display: flex; align-items: center; gap: 50px; min-height: 80vh; }
-        .hero-text { flex: 1; }
-        .hero-text h2 { font-family: 'Plus Jakarta Sans'; font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; line-height: 1.1; }
+
+        /* MAXIMIZED HERO SECTION */
+        section { padding: 120px 8% 80px; max-width: 1400px; margin: 0 auto; }
+        .hero { display: flex; align-items: center; gap: 60px; min-height: 90vh; }
+        .hero-text { flex: 1.2; }
+        .hero-text h2 { font-family: 'Plus Jakarta Sans'; font-size: 4.5rem; color: var(--primary); margin-bottom: 25px; line-height: 1; letter-spacing: -2px; }
         .hero-text h2 span { color: var(--accent); }
-        .badge { color: var(--accent); font-weight: 800; font-size: 0.75rem; letter-spacing: 2px; display: block; margin-bottom: 10px; }
-        .hero-image img { width: 380px; height: 380px; border-radius: 50%; object-fit: cover; border: 8px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        /* ENLARGED PROFESSIONAL TITLE */
+        .badge { color: var(--accent); font-weight: 800; font-size: 1.1rem; letter-spacing: 3px; display: block; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .hero-image { flex: 0.8; display: flex; justify-content: center; }
+        .hero-image img { width: 450px; height: 450px; border-radius: 50%; object-fit: cover; border: 12px solid white; box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+        
+        .hero-actions { display: flex; gap: 20px; margin-top: 40px; align-items: center; }
+        
+        .btn-primary { padding: 20px 45px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 1.1rem; cursor: pointer; text-decoration: none; transition: 0.3s; }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
+        
+        /* CV DOWNLOAD BUTTON STYLES */
+        .btn-cv { padding: 18px 40px; background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 12px; font-weight: 800; font-size: 1.1rem; cursor: pointer; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-cv:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .card { padding: 40px; background: white; border: 1px solid var(--border); border-radius: 20px; transition: 0.3s; }
-        .card i { font-size: 2rem; color: var(--accent); margin-bottom: 20px; display: block; }
-        .tag-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-        .tag { padding: 8px 20px; background: var(--light); border: 1px solid var(--border); border-radius: 50px; font-weight: 600; font-size: 0.8rem; }
-        .btn-primary { padding: 15px 35px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
-        .form-box input, .form-box textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 10px; background: var(--light); font-family: inherit; }
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem; }
-        @media (max-width: 900px) { .hero { flex-direction: column-reverse; text-align: center; } .hero-image img { width: 280px; height: 280px; } }
+        .card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; display: block; }
+
+        .tag-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+        .tag { padding: 10px 24px; background: var(--light); border: 1px solid var(--border); border-radius: 50px; font-weight: 600; font-size: 0.9rem; }
+
+        .form-box input, .form-box textarea { width: 100%; padding: 18px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 12px; background: var(--light); font-family: inherit; }
+        
+        footer { text-align: center; padding: 60px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.9rem; }
+        
+        @media (max-width: 1100px) { 
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; } 
+            .hero-text h2 { font-size: 3.5rem; }
+            .hero-actions { justify-content: center; flex-direction: column; }
+            .hero-image img { width: 320px; height: 320px; }
+        }
     </style>
 </head>
 <body>
@@ -71,11 +96,17 @@ try {
 
 <section id="hero" class="hero">
     <div class="hero-text">
-        <span class="badge">SENIOR ACCOUNTANT | FINANCIAL OPERATIONS PARTNER</span>
+        <span class="badge">Senior Accountant | Financial Operations Partner</span>
         <h2>High-Stakes <span>Financial</span> Clarity.</h2>
-        <p>I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise.</p>
-        <p style="margin-top: 10px; color: var(--text-dim);">17+ years of experience supporting international businesses across the US, Australia, and the Middle East.</p>
-        <a href="#contact" class="btn-primary" style="margin-top: 25px;">SECURE A PARTNERSHIP</a>
+        <p style="font-size: 1.25rem; color: var(--text-dim); margin-bottom: 10px;">I manage a structured portfolio of businesses, ensuring each client receives accurate, timely, and decision-ready financials without compromise.</p>
+        <p style="font-size: 1.1rem; font-weight: 600;">17+ years of experience supporting international businesses across the US, Australia, and the Middle East.</p>
+        
+        <div class="hero-actions">
+            <a href="#contact" class="btn-primary">SECURE A PARTNERSHIP</a>
+            <a href="Afryl_Lou_Okit_CV.pdf" download class="btn-cv">
+                <i class="fas fa-file-download"></i> DOWNLOAD CV
+            </a>
+        </div>
     </div>
     <div class="hero-image">
         <img src="Afryl.jpg" alt="Afryl Lou Okit">
@@ -83,7 +114,7 @@ try {
 </section>
 
 <section id="services" style="background: var(--light);">
-    <h2 style="text-align: center; font-family: 'Plus Jakarta Sans';">Core Strategic Values</h2>
+    <h2 style="text-align: center; font-family: 'Plus Jakarta Sans'; font-size: 2.5rem; margin-bottom: 40px;">Core Strategic Values</h2>
     <div class="grid">
         <div class="card">
             <i class="fas fa-file-invoice-dollar"></i>
@@ -104,7 +135,7 @@ try {
 </section>
 
 <section id="portfolio">
-    <h2 style="margin-bottom: 20px; font-family: 'Plus Jakarta Sans';">System Mastery</h2>
+    <h2 style="margin-bottom: 25px; font-family: 'Plus Jakarta Sans'; font-size: 2rem;">System Mastery</h2>
     <div class="tag-container">
         <span class="tag">QuickBooks Online</span> 
         <span class="tag">Xero</span> 
@@ -117,46 +148,46 @@ try {
         <span class="tag">Floqast</span>
     </div>
     
-    <div style="margin-top: 60px; padding: 40px; background: var(--primary); color: white; border-radius: 24px;">
-        <h3 style="color: var(--accent); margin-bottom: 10px;">Featured Engagement: BLUESKY INVESTMENTS LLC</h3>
-        <p><strong>Finance/Accounting Lead (Nov 2018 - Present)</strong></p>
-        <ul style="margin-top: 15px; padding-left: 20px; color: #cbd5e1;">
-            <li>Lead end-to-end accounting and financial operations.</li>
-            <li>Oversee multi-entity accounting and intercompany transactions.</li>
+    <div style="margin-top: 60px; padding: 50px; background: var(--primary); color: white; border-radius: 30px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);">
+        <h3 style="color: var(--accent); margin-bottom: 15px; font-size: 1.5rem;">Featured Engagement: BLUESKY INVESTMENTS LLC</h3>
+        <p style="font-size: 1.1rem;"><strong>Finance/Accounting Lead (Nov 2018 - Present)</strong></p>
+        <ul style="margin-top: 20px; padding-left: 20px; color: #cbd5e1; font-size: 1.05rem;">
+            <li style="margin-bottom: 10px;">Lead end-to-end accounting and financial operations.</li>
+            <li style="margin-bottom: 10px;">Oversee multi-entity accounting and intercompany transactions.</li>
             <li>Perform budget vs. actual analysis to identify financial drivers.</li>
         </ul>
     </div>
 </section>
 
 <section id="contact">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; align-items: center;">
         <div>
-            <h2 style="font-size: 2.5rem; font-family: 'Plus Jakarta Sans'; margin-bottom: 20px;">Let's Connect.</h2>
-            <p>Supporting international clients across real estate, e-commerce, and service-based industries.</p>
-            <p style="margin-top: 20px;"><strong>Email:</strong> afryllou.consulting@gmail.com</p>
+            <h2 style="font-size: 3rem; font-family: 'Plus Jakarta Sans'; margin-bottom: 20px; line-height: 1.1;">Let's Connect.</h2>
+            <p style="font-size: 1.1rem; color: var(--text-dim); margin-bottom: 30px;">Supporting international clients across real estate, e-commerce, and service-based industries.</p>
+            <p style="margin-bottom: 10px;"><strong>Email:</strong> afryllou.consulting@gmail.com</p>
             <p><strong>Phone:</strong> +63 999 586 61908</p>
         </div>
         <div class="form-box">
             <form id="commentForm">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="text" name="company" placeholder="Company" required>
-                <textarea name="comment_text" rows="4" placeholder="Feedback or Inquiry..." required></textarea>
-                <button type="submit" id="commentBtn" class="btn-primary" style="width: 100%;">SUBMIT</button>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="company" placeholder="Company Name" required>
+                <textarea name="comment_text" rows="5" placeholder="How can I help with your financial operations?" required></textarea>
+                <button type="submit" id="commentBtn" class="btn-primary" style="width: 100%;">SEND MESSAGE</button>
             </form>
         </div>
     </div>
 </section>
 
 <section id="feedback-display" style="padding-top: 0;">
-    <h3 style="margin-bottom: 30px; font-family: 'Plus Jakarta Sans';">Client Feedback</h3>
+    <h3 style="margin-bottom: 30px; font-family: 'Plus Jakarta Sans'; font-size: 1.8rem;">Client Feedback</h3>
     <div id="comments-list">
         <?php if (empty($comments)): ?>
-            <p style="color: var(--text-dim);">No feedback available yet.</p>
+            <p style="color: var(--text-dim);">No feedback available yet. Be the first to leave a review.</p>
         <?php else: ?>
             <?php foreach ($comments as $row): ?>
-                <div class="card" style="margin-bottom: 15px; padding: 25px;">
-                    <p style="font-style: italic;">"<?php echo htmlspecialchars($row['comment_text']); ?>"</p>
-                    <p style="margin-top: 10px; font-weight: 700; font-size: 0.85rem;">
+                <div class="card" style="margin-bottom: 20px; padding: 30px; border-left: 5px solid var(--accent);">
+                    <p style="font-style: italic; font-size: 1.1rem; color: var(--primary);">"<?php echo htmlspecialchars($row['comment_text']); ?>"</p>
+                    <p style="margin-top: 15px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
                         — <?php echo htmlspecialchars($row['name']); ?>, <?php echo htmlspecialchars($row['company']); ?>
                     </p>
                 </div>
@@ -173,7 +204,7 @@ try {
     document.getElementById('commentForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('commentBtn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SUBMITTING...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
         btn.disabled = true;
 
         fetch('save_comment.php', { method: 'POST', body: new FormData(this) })

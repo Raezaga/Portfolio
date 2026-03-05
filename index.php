@@ -124,31 +124,31 @@ try {
     </div>
     <div class="sw-grid">
         <div class="sw-pill">
-            <img src="Netsuite.png" alt="NetSuite" style="filter: brightness(0) invert(1); width: 120px;">
+            <img src="Netsuite.png" alt="NetSuite" width: 120px;">
             <span>NETSUITE</span>
         </div>
         <div class="sw-pill">
-            <img src="Quickbooks.png" alt="QuickBooks" style="filter: brightness(0) invert(1); width: 120px;">
+            <img src="Quickbooks.png" alt="QuickBooks" width: 120px;">
             <span>QUICKBOOKS</span>
         </div>
         <div class="sw-pill">
-            <img src="xero.png" alt="Xero" style="width: 45px;">
+            <img src="xero.png" alt="Xero" style=" width: 45px;">
             <span>XERO ADVISOR</span>
         </div>
         <div class="sw-pill">
-            <img src="Billcom.png" alt="Bill.com" style="filter: brightness(0) invert(1); width: 100px;">
+            <img src="Billcom.png" alt="Bill.com" style="width: 100px;">
             <span>BILL.COM / DEXT</span>
         </div>
         <div class="sw-pill">
-            <img src="Voyage.png" alt="Voyage" style="width: 100px;">
-            <span>VOYAGE</span>
+            <img src="Salesforce.png" alt="Salesforce" style="width: 100px;">
+            <span>SALESFORCE</span>
         </div>
         <div class="sw-pill">
             <img src="clickup.png" alt="ClickUp" style="width: 120px;">
             <span>CLICKUP</span>
         </div>
         <div class="sw-pill">
-            <img src="FQ.png" alt="FloQast" style="filter: brightness(0) invert(1); width: 100px;">
+            <img src="FQ.png" alt="FloQast" style="width: 100px;">
             <span>FLOQAST</span>
         </div>
     </div>
@@ -272,6 +272,7 @@ try {
 </script>
 </body>
 </html>
+
 
 
 

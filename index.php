@@ -192,6 +192,7 @@ try {
 </section>
     
 <section id="connect">
+    <div class="glass-card">
         <div class="form-box">
             <form action="send_email.php" method="POST">
                  <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1;">Let's Connect</h3>
@@ -303,6 +304,7 @@ try {
 </script>
 </body>
 </html>
+
 
 
 

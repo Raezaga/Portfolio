@@ -1,24 +1,27 @@
 <?php
 include "config.php";
 
-// DATABASE LOGIC: Only fetch reviews that have been APPROVED by the admin
-$limit = 5; 
+// 1. DATABASE LOGIC: Fetch only approved reviews with a limit of 6
+$limit = 6; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 try {
-    // We only count approved comments for pagination
+    // Count total approved reviews for pagination calculation
     $total_stmt = $pdo->query("SELECT COUNT(*) FROM comments WHERE status = 'approved'");
     $total_comments = $total_stmt->fetchColumn();
     $total_pages = ceil($total_comments / $limit);
 
-    // We only fetch approved comments to display on the page
+    // Fetch the specific set of approved reviews for the current page
     $stmt = $pdo->prepare("SELECT * FROM comments WHERE status = 'approved' ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (Exception $e) { $comments = []; $total_pages = 0; }
+} catch (Exception $e) { 
+    $comments = []; 
+    $total_pages = 0; 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,17 +54,9 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
-        .hero-btns { 
-            display: flex; 
-            flex-direction: row; 
-            gap: 20px; 
-            margin-top: 45px; 
-            align-items: center;
-        }
-
+        .hero-btns { display: flex; flex-direction: row; gap: 20px; margin-top: 45px; align-items: center; }
         .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
         .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
-        
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 40px; }
@@ -75,14 +70,14 @@ try {
         .feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
         .feedback-item { background: var(--card-bg); padding: 50px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
         
+        .pagination { margin-top: 50px; display: flex; justify-content: center; gap: 10px; }
+        .pagination a { text-decoration: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-weight: 800; font-size: 0.7rem; transition: 0.3s; }
+        .pagination a.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+        .pagination a:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
-        @media (max-width: 1100px) { 
-            .hero { flex-direction: column; text-align: center; } 
-            .hero-btns { justify-content: center; flex-direction: column; }
-            .glass-card { grid-template-columns: 1fr; } 
-            .hero-text h2 { font-size: 3.5rem; } 
-        }
+        @media (max-width: 1100px) { .hero { flex-direction: column; text-align: center; } .hero-btns { justify-content: center; flex-direction: column; } .glass-card { grid-template-columns: 1fr; } .hero-text h2 { font-size: 3.5rem; } }
     </style>
 </head>
 <body>
@@ -149,6 +144,7 @@ try {
 
 <section id="feedback" style="border-top: 1px solid rgba(255,255,255,0.05);">
     <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white;">Executive Proof</h3>
+    
     <div class="feedback-grid">
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
             <div class="feedback-item">
@@ -159,6 +155,24 @@ try {
             <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting further professional validation.</p>
         <?php endif; ?>
     </div>
+
+    <?php if ($total_pages > 1): ?>
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+            <a href="?page=<?php echo $page - 1; ?>#feedback">← PREV</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+            <a href="?page=<?php echo $i; ?>#feedback" class="<?php echo ($i == $page) ? 'active' : ''; ?>">
+                <?php echo $i; ?>
+            </a>
+        <?php endfor; ?>
+
+        <?php if ($page < $total_pages): ?>
+            <a href="?page=<?php echo $page + 1; ?>#feedback">NEXT →</a>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
 </section>
 
 <section style="background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(255,255,255,0.05);">
@@ -199,4 +213,3 @@ try {
 </script>
 </body>
 </html>
-

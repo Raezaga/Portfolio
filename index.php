@@ -1,18 +1,18 @@
 <?php
 include "config.php";
 
-// 1. DATABASE LOGIC: Fetch only approved reviews with a limit of 6
+// 1. PAGINATION & DATABASE LOGIC
 $limit = 6; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 try {
-    // Count total approved reviews for pagination calculation
+    // Only count reviews that you have MANUALLY APPROVED
     $total_stmt = $pdo->query("SELECT COUNT(*) FROM comments WHERE status = 'approved'");
     $total_comments = $total_stmt->fetchColumn();
     $total_pages = ceil($total_comments / $limit);
 
-    // Fetch the specific set of approved reviews for the current page
+    // Fetch only APPROVED reviews for the current page
     $stmt = $pdo->prepare("SELECT * FROM comments WHERE status = 'approved' ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -37,43 +37,51 @@ try {
         html { scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--slate); line-height: 1.7; overflow-x: hidden; }
 
+        /* Navigation */
         nav { position: fixed; top: 0; width: 100%; padding: 25px 8%; background: rgba(7, 10, 19, 0.9); backdrop-filter: blur(20px); display: flex; justify-content: space-between; z-index: 1000; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
         nav h1 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); letter-spacing: 2px; text-transform: uppercase; }
-        nav ul { display: flex; list-style: none; gap: 40px; }
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
         nav ul a { text-decoration: none; color: var(--slate); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
         nav ul a:hover { color: var(--gold); }
+        .nav-admin { border: 1px solid var(--gold); padding: 8px 15px; color: var(--gold) !important; border-radius: 4px; }
 
         section { padding: 120px 10% 80px; max-width: 1500px; margin: 0 auto; }
 
+        /* Hero Section */
         .hero { display: flex; align-items: center; gap: 60px; min-height: 100vh; }
         .hero-text { flex: 1.1; }
         .hero-text h2 { font-family: 'Playfair Display', serif; font-size: 5.5rem; color: var(--white); line-height: 1.1; font-weight: 700; letter-spacing: -3px; }
         .hero-text h2 span { color: var(--gold); font-style: italic; }
-
         .hero-image { flex: 0.9; position: relative; display: flex; justify-content: center; }
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
+        /* Buttons */
         .hero-btns { display: flex; flex-direction: row; gap: 20px; margin-top: 45px; align-items: center; }
-        .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
+        .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; text-align: center; }
         .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
+        /* Tech Grid */
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 40px; }
         .sw-pill { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px; text-align: center; transition: var(--transition); }
         .sw-pill i { color: var(--gold); font-size: 1.8rem; margin-bottom: 12px; display: block; }
         .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; }
 
+        /* Forms */
         .glass-card { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; background: var(--card-bg); padding: 80px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
-        .form-box input, .form-box textarea { width: 100%; padding: 20px 0; margin-bottom: 30px; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--white); outline: none; font-family: inherit; }
+        .form-box input, .form-box textarea, .form-box select { width: 100%; padding: 20px 0; margin-bottom: 30px; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--white); outline: none; font-family: inherit; }
+        .form-box select { color: var(--gold); cursor: pointer; }
+        .form-box select option { background: #070a13; color: white; }
 
+        /* Feedback Grid */
         .feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
         .feedback-item { background: var(--card-bg); padding: 50px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
         
+        /* Pagination */
         .pagination { margin-top: 50px; display: flex; justify-content: center; gap: 10px; }
         .pagination a { text-decoration: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-weight: 800; font-size: 0.7rem; transition: 0.3s; }
         .pagination a.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-        .pagination a:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
 
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
 
@@ -88,7 +96,7 @@ try {
         <li><a href="#hero">Overview</a></li>
         <li><a href="#connect">Connect</a></li>
         <li><a href="#feedback">Validation</a></li>
-        <li><a href="admin.php">Admin</a></li>
+        <li><a href="admin.php" class="nav-admin">Admin Portal</a></li>
     </ul>
 </nav>
 
@@ -149,7 +157,12 @@ try {
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
             <div class="feedback-item">
                 <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); font-style: italic; line-height: 1.6; margin-bottom: 30px;">"<?php echo htmlspecialchars($row['comment_text']); ?>"</p>
-                <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold);">— <?php echo htmlspecialchars($row['name']); ?> / <?php echo htmlspecialchars($row['company']); ?></p>
+                <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); display: flex; align-items: center; gap: 10px;">
+                    <?php if(!empty($row['country_code'])): ?>
+                        <img src="https://flagcdn.com/w20/<?php echo strtolower($row['country_code']); ?>.png" width="20" alt="Flag" style="border-radius:2px;">
+                    <?php endif; ?>
+                    — <?php echo htmlspecialchars($row['name']); ?> / <?php echo htmlspecialchars($row['company']); ?>
+                </p>
             </div>
         <?php endforeach; else: ?>
             <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting further professional validation.</p>
@@ -181,6 +194,18 @@ try {
         <form id="reviewForm" class="form-box">
             <input type="text" name="name" placeholder="Display Name" required>
             <input type="text" name="company" placeholder="Organization" required>
+            
+            <select name="country_code" required>
+                <option value="" disabled selected>Select Your Country</option>
+                <option value="us">United States</option>
+                <option value="ph">Philippines</option>
+                <option value="gb">United Kingdom</option>
+                <option value="au">Australia</option>
+                <option value="ca">Canada</option>
+                <option value="sg">Singapore</option>
+                <option value="ae">United Arab Emirates</option>
+            </select>
+
             <textarea name="comment_text" rows="3" placeholder="Write your testimonial..." required></textarea>
             <button type="submit" id="reviewBtn" class="btn-gold">Post to Website</button>
         </form>
@@ -203,7 +228,8 @@ try {
         btn.disabled = true;
 
         fetch('save_comment.php', { method: 'POST', body: new FormData(this) })
-        .then(() => { 
+        .then(response => response.text())
+        .then(data => { 
             btn.innerHTML = 'SUBMITTED';
             note.style.display = 'block';
             this.reset();

@@ -1,16 +1,18 @@
 <?php
 include "config.php";
 
-// DATABASE LOGIC: Fetch Reviews for the Page
+// DATABASE LOGIC: Only fetch reviews that have been APPROVED by the admin
 $limit = 5; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 try {
+    // We only count approved comments for pagination
     $total_stmt = $pdo->query("SELECT COUNT(*) FROM comments WHERE status = 'approved'");
     $total_comments = $total_stmt->fetchColumn();
     $total_pages = ceil($total_comments / $limit);
 
+    // We only fetch approved comments to display on the page
     $stmt = $pdo->prepare("SELECT * FROM comments WHERE status = 'approved' ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -49,7 +51,6 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
-        /* BUTTON FIX: Side-by-Side Container */
         .hero-btns { 
             display: flex; 
             flex-direction: row; 
@@ -108,21 +109,6 @@ try {
     </div>
 </section>
 
-<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; border-top: 1px solid rgba(255,255,255,0.05);">
-    <div>
-        <h4 style="color: var(--gold); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">01. MULTI-ENTITY STRUCTURE</h4>
-        <p>I specialize in bringing clarity to international portfolios across the US, Australia, and the Middle East.</p>
-    </div>
-    <div>
-        <h4 style="color: var(--gold); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">02. AUDIT-READY BOOKS</h4>
-        <p>Transforming disorganized records into decision-ready financials every single month—no surprises.</p>
-    </div>
-    <div>
-        <h4 style="color: var(--gold); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">03. OPERATIONAL INSIGHT</h4>
-        <p>Identifying risks and inefficiencies early through budget vs. actual analysis.</p>
-    </div>
-</section>
-
 <section style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05);">
     <div style="text-align: center; margin-bottom: 40px;"><span style="color: var(--gold); letter-spacing: 5px; font-size: 0.7rem; font-weight: 800;">TECHNOLOGY INFRASTRUCTURE</span></div>
     <div class="sw-grid">
@@ -165,7 +151,7 @@ try {
                 <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold);">— <?php echo htmlspecialchars($row['name']); ?> / <?php echo htmlspecialchars($row['company']); ?></p>
             </div>
         <?php endforeach; else: ?>
-            <p style="text-align: center; grid-column: 1/-1;">Awaiting professional validation.</p>
+            <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting further professional validation.</p>
         <?php endif; ?>
     </div>
 </section>
@@ -179,6 +165,7 @@ try {
             <textarea name="comment_text" rows="3" placeholder="Write your testimonial..." required></textarea>
             <button type="submit" id="reviewBtn" class="btn-gold">Post to Website</button>
         </form>
+        <p id="submissionNote" style="margin-top: 15px; font-size: 0.8rem; color: var(--gold); display: none;">Your review has been submitted for admin approval.</p>
     </div>
 </section>
 
@@ -191,9 +178,18 @@ try {
     document.getElementById('reviewForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('reviewBtn');
-        btn.innerHTML = 'POSTING...';
+        const note = document.getElementById('submissionNote');
+        
+        btn.innerHTML = 'SUBMITTING...';
+        btn.disabled = true;
+
         fetch('save_comment.php', { method: 'POST', body: new FormData(this) })
-        .then(() => { alert("Review saved to database!"); location.reload(); });
+        .then(() => { 
+            btn.innerHTML = 'SUBMITTED';
+            note.style.display = 'block';
+            this.reset();
+            alert("Thank you! Your review has been sent to the admin for approval.");
+        });
     });
 </script>
 </body>

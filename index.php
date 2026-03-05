@@ -119,34 +119,36 @@ try {
 </section>
 
 <section style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05);">
-    <div style="text-align: center; margin-bottom: 40px;"><span style="color: var(--gold); letter-spacing: 5px; font-size: 0.7rem; font-weight: 800;">TECHNOLOGY INFRASTRUCTURE</span></div>
+    <div style="text-align: center; margin-bottom: 40px;">
+        <span style="color: var(--gold); letter-spacing: 5px; font-size: 0.7rem; font-weight: 800;">TECHNOLOGY INFRASTRUCTURE</span>
+    </div>
     <div class="sw-grid">
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/netsuite/netsuite-ar21.svg" alt="NetSuite" style="filter: brightness(0) invert(1);">
+            <img src="https://www.vectorlogo.zone/logos/netsuite/netsuite-ar21.svg" alt="NetSuite" style="filter: brightness(0) invert(1); width: 120px;">
             <span>NETSUITE</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/intuit_quickbooks/intuit_quickbooks-ar21.svg" alt="QuickBooks" style="filter: brightness(0) invert(1);">
+            <img src="https://www.vectorlogo.zone/logos/intuit_quickbooks/intuit_quickbooks-ar21.svg" alt="QuickBooks" style="filter: brightness(0) invert(1); width: 120px;">
             <span>QUICKBOOKS</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/xero/xero-icon.svg" alt="Xero">
+            <img src="https://www.vectorlogo.zone/logos/xero/xero-icon.svg" alt="Xero" style="width: 45px;">
             <span>XERO ADVISOR</span>
         </div>
         <div class="sw-pill">
-            <img src="https://logo.clearbit.com/bill.com" alt="Bill.com" style="filter: grayscale(1) brightness(2); border-radius: 4px;">
+            <img src="https://cdn.worldvectorlogo.com/logos/bill-com-1.svg" alt="Bill.com" style="filter: brightness(0) invert(1); width: 100px;">
             <span>BILL.COM / DEXT</span>
         </div>
         <div class="sw-pill">
-            <img src="https://logo.clearbit.com/voyage.auto" alt="Voyage" style="filter: brightness(0) invert(1);">
+            <img src="https://logo.clearbit.com/voyage.com" alt="Voyage" style="filter: brightness(0) invert(1); width: 100px;">
             <span>VOYAGE</span>
         </div>
         <div class="sw-pill">
-            <img src="https://www.vectorlogo.zone/logos/clickup/clickup-ar21.svg" alt="ClickUp">
+            <img src="https://www.vectorlogo.zone/logos/clickup/clickup-ar21.svg" alt="ClickUp" style="width: 120px;">
             <span>CLICKUP</span>
         </div>
         <div class="sw-pill">
-            <img src="https://logo.clearbit.com/floqast.com" alt="FloQast" style="filter: grayscale(1) brightness(2);">
+            <img src="https://logo.clearbit.com/floqast.com" alt="FloQast" style="filter: brightness(0) invert(1); width: 100px;">
             <span>FLOQAST</span>
         </div>
     </div>
@@ -270,3 +272,4 @@ try {
 </script>
 </body>
 </html>
+

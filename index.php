@@ -95,17 +95,37 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
+        /* Highlighted words for Hero */
+        .highlight-gold {
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
         /* Buttons */
         .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; text-align: center; }
         .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
-        /* Tech Grid */
+        /* Tech Grid - Updated to stay colored */
         .sw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 40px; }
-        .sw-pill { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 25px; text-align: center; transition: var(--transition); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .sw-pill:hover { border-color: var(--gold); background: rgba(197, 160, 89, 0.05); }
-        .sw-pill img { margin-bottom: 15px; width: 100px; filter: grayscale(100%) brightness(1.5); transition: 0.3s; }
-        .sw-pill:hover img { filter: grayscale(0%) brightness(1); }
+        .sw-pill { 
+            background: rgba(197, 160, 89, 0.05); 
+            border: 1px solid var(--gold); 
+            padding: 25px; 
+            text-align: center; 
+            transition: var(--transition); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .sw-pill img { 
+            margin-bottom: 15px; 
+            width: 100px; 
+            filter: grayscale(0%) brightness(1); 
+            transition: 0.3s; 
+        }
         .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; }
 
         /* REFACTORED: Let's Connect Section */
@@ -141,7 +161,7 @@ try {
             .glass-card { flex-direction: column; padding: 40px; gap: 40px; text-align: center; }
             nav { padding: 15px 5%; }
             nav h1 { font-size: 1.5rem; }
-            nav ul { display: none; } /* Consider adding a hamburger menu here */
+            nav ul { display: none; }
         }
     </style>
 </head>
@@ -164,7 +184,10 @@ try {
         </div>
         <h2>Transforming <span>Complex</span> Financials.</h2>
         <p style="font-size: 1.3rem; font-weight: 300; margin-bottom: 45px; max-width: 650px; color: var(--slate);">
-            Senior Accountant & Financial Operations Partner helping global businesses gain clarity, control, and confidence in their numbers.
+            Senior Accountant & Financial Operations Partner helping global businesses gain 
+            <span class="highlight-gold">clarity</span>, 
+            <span class="highlight-gold">control</span>, and 
+            <span class="highlight-gold">confidence</span> in their numbers.
         </p>
         <div class="hero-btns">
             <a href="#connect" class="btn-gold">Secure Partnership</a>
@@ -305,9 +328,3 @@ try {
 </script>
 </body>
 </html>
-
-
-
-
-
-

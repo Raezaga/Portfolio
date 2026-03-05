@@ -5,7 +5,7 @@ include "config.php";
 if (isset($_GET['logout'])) { session_destroy(); header("Location: index.php"); exit; }
 
 // Simple Login Protection
-$admin_password = "AfrylAdmin2024!"; 
+$admin_password = "AfrylAdmin"; 
 if (!isset($_SESSION['admin_auth'])) {
     if (isset($_POST['pass']) && $_POST['pass'] === $admin_password) { $_SESSION['admin_auth'] = true; } 
     else { die('<body style="background:#070a13; color:white; display:flex; justify-content:center; align-items:center; height:100vh;"><form method="POST" style="border:1px solid #c5a059; padding:40px; text-align:center;"><h2 style="color:#c5a059">Admin Access</h2><input type="password" name="pass" placeholder="Password" style="padding:10px; margin-bottom:10px; display:block; width:200px;"><button type="submit" style="background:#c5a059; border:none; padding:10px 20px; cursor:pointer;">Login</button></form></body>'); }
@@ -78,3 +78,4 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
     </table>
 </body>
 </html>
+

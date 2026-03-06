@@ -183,7 +183,7 @@ try {
         </p>
         <div class="hero-btns">
             <a href="#connect" class="btn-gold">Secure Partnership</a>
-            <a href="Afryl_Lou_Okit_CV.pdf" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
+            <a href="**" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
         </div>
     </div>
     <div class="hero-image">
@@ -322,3 +322,4 @@ try {
 </script>
 </body>
 </html>
+

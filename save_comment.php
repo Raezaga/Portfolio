@@ -1,14 +1,19 @@
 <?php
 /**
- * CORS HEADERS
- * Replace 'https://your-new-review-domain.com' with the actual domain 
- * where your rate.php file is hosted.
+ * DYNAMIC CORS HEADERS
+ * This version automatically detects the source domain to allow 
+ * the cross-domain connection to work seamlessly.
  */
-header("Access-Control-Allow-Origin: https://your-new-review-domain.com");
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+// You can eventually restrict this to your specific new domain for better security
+// Example: if ($origin == "https://your-new-domain.com") { ... }
+header("Access-Control-Allow-Origin: " . $origin); 
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
 
-// Handle preflight 'OPTIONS' requests automatically sent by browsers
+// Handle preflight 'OPTIONS' requests (The "Security Handshake")
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();

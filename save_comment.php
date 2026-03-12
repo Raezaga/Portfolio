@@ -1,23 +1,34 @@
 <?php
+/**
+ * CORS HEADERS
+ * Replace 'https://your-new-review-domain.com' with the actual domain 
+ * where your rate.php file is hosted.
+ */
+header("Access-Control-Allow-Origin: https://your-new-review-domain.com");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// Handle preflight 'OPTIONS' requests automatically sent by browsers
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 include "config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name'] ?? '');
     $company = htmlspecialchars($_POST['company'] ?? '');
-    // NEW: Capture position
     $position = htmlspecialchars($_POST['position'] ?? '');
     $comment_text = htmlspecialchars($_POST['comment_text'] ?? '');
     $country_code = htmlspecialchars($_POST['country_code'] ?? '');
 
-    // Validation: Check if name, position, and comment are filled
     if (!empty($name) && !empty($position) && !empty($comment_text)) {
         try {
-            // UPDATED: Added 'position' to the SQL query
             $stmt = $pdo->prepare("INSERT INTO comments (name, company, position, comment_text, country_code, status) VALUES (?, ?, ?, ?, ?, 'pending')");
             $result = $stmt->execute([$name, $company, $position, $comment_text, $country_code]);
 
             if ($result) {
-                // Pass the new position variable to the notification function
                 sendNotification($name, $company, $position, $comment_text, $country_code);
                 echo "success";
             }
@@ -31,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// UPDATED: Added $position parameter
 function sendNotification($name, $company, $position, $text, $country) {
     $apiKey = 're_cRp2zLxY_bxKmdgM25fHeBK8PFrvgrbUq'; 
     $url = 'https://api.resend.com/emails';
@@ -41,7 +51,6 @@ function sendNotification($name, $company, $position, $text, $country) {
     $data = [
         'from' => 'Portfolio <onboarding@resend.dev>',
         'to' => ['afryllou.consulting@gmail.com'],
-        // Subject now shows Name and Position
         'subject' => 'New Review Awaiting Approval: ' . $name . ' (' . $position . ')',
         'html' => "
             <div style='font-family: sans-serif; padding: 20px; color: #1e293b;'>

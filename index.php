@@ -119,6 +119,49 @@ try {
         .sw-pill img { margin-bottom: 15px; width: 100px; transition: 0.3s; }
         .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; }
 
+        /* Feedback Grid Refinement */
+        .feedback-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 40px; 
+            margin-top: 60px; 
+            align-items: stretch;
+        }
+
+        .feedback-item { 
+            background: var(--card-bg); 
+            padding: 50px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            transition: 0.3s; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 480px;
+        }
+
+        .review-content {
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.25rem; 
+            color: var(--white); 
+            font-style: italic; 
+            line-height: 1.8; 
+            margin-bottom: 30px;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        /* Custom Gold Scrollbar */
+        .review-content::-webkit-scrollbar { width: 3px; }
+        .review-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .review-content::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        .feedback-author {
+            margin-top: auto;
+            padding-top: 25px;
+            border-top: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
         /* Connect Section */
         .glass-card { 
             display: flex; 
@@ -133,14 +176,6 @@ try {
         .form-box input, .form-box textarea, .form-box select { width: 100%; padding: 20px 0; margin-bottom: 30px; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--white); outline: none; font-family: inherit; }
         .form-box select option { background: #070a13; color: white; }
 
-        /* Success Message Styling */
-        .status-container { text-align: center; margin-top: 35px; width: 100%; }
-        .status-pill { color: var(--gold); font-weight: 800; border: 1px solid var(--gold); padding: 15px 35px; display: inline-block; letter-spacing: 2px; font-size: 0.8rem; }
-
-        /* Feedback Grid */
-        .feedback-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px; }
-        .feedback-item { background: var(--card-bg); padding: 50px; border: 1px solid rgba(255,255,255,0.03); transition: 0.3s; }
-        
         .pagination { margin-top: 50px; display: flex; justify-content: center; gap: 10px; }
         .pagination a { text-decoration: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-weight: 800; font-size: 0.7rem; transition: 0.3s; }
         .pagination a.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
@@ -150,8 +185,8 @@ try {
         @media (max-width: 1100px) { 
             .hero { flex-direction: column; text-align: center; padding-top: 150px; } 
             .hero-text h2 { font-size: 3.5rem; } 
+            .feedback-grid { grid-template-columns: 1fr; }
             .glass-card { padding: 40px; }
-            nav { padding: 15px 5%; }
             nav h1 { font-size: 1.5rem; }
             nav ul { display: none; }
         }
@@ -183,48 +218,11 @@ try {
         </p>
         <div class="hero-btns">
             <a href="#connect" class="btn-gold">Secure Partnership</a>
-            <a href="**" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
+            <a href="#" target="_blank" class="btn-outline"><i class="fas fa-file-download" style="margin-right: 10px;"></i>Download CV</a>
         </div>
     </div>
     <div class="hero-image">
         <div class="img-wrapper"><img src="afryl.jpg" alt="Afryl Lou Okit"></div>
-    </div>
-</section>
-
-<section style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05);">
-    <div style="text-align: center; margin-bottom: 40px;">
-        <span style="color: var(--gold); letter-spacing: 5px; font-size: 0.7rem; font-weight: 800;">TECHNOLOGY INFRASTRUCTURE</span>
-    </div>
-    <div class="sw-grid">
-        <div class="sw-pill"><img src="Netsuite.png" alt="NetSuite"><span>NETSUITE</span></div>
-        <div class="sw-pill"><img src="Quickbooks.png" alt="QuickBooks"><span>QUICKBOOKS</span></div>
-        <div class="sw-pill"><img src="xero.png" alt="Xero"><span>XERO</span></div>
-        <div class="sw-pill"><img src="Billcom.png" alt="Bill.com"><span>BILL.COM / DEXT</span></div>
-        <div class="sw-pill"><img src="Salesforce.png" alt="Salesforce"><span>SALESFORCE</span></div>
-        <div class="sw-pill"><img src="clickup.png" alt="ClickUp"><span>CLICKUP</span></div>
-        <div class="sw-pill"><img src="FQ.png" alt="FloQast"><span>FLOQAST</span></div>
-    </div>
-</section>
-    
-<section id="connect">
-    <div class="glass-card">
-        <div class="form-box">
-            <form action="send_email.php" method="POST">
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1; text-align:center;">Let's Connect</h3>
-                <p style="margin: 25px 0 45px; font-size: 1.1rem; text-align:center;">Secure financial partnership for international entities.</p>
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="text" name="company" placeholder="Organization" required>
-                <input type="email" name="email" placeholder="Professional Email" required>
-                <textarea name="message" rows="4" placeholder="How can I assist your financials?" required></textarea>
-                <button type="submit" class="btn-gold" style="width: 100%;">Send Inquiry</button>
-                
-                <?php if(isset($_GET['mail']) && $_GET['mail'] == 'sent'): ?>
-                    <div class="status-container">
-                        <p class="status-pill"><i class="fas fa-check" style="margin-right:10px;"></i> MESSAGE SENT</p>
-                    </div>
-                <?php endif; ?>
-            </form>
-        </div>
     </div>
 </section>
 
@@ -233,19 +231,22 @@ try {
     <div class="feedback-grid">
         <?php if(!empty($comments)): foreach ($comments as $row): ?>
             <div class="feedback-item">
-                <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--white); font-style: italic; line-height: 1.6; margin-bottom: 30px;">
+                <div class="review-content">
                     "<?php echo htmlspecialchars($row['comment_text']); ?>"
-                </p>
-                <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); display: flex; align-items: center; gap: 10px;">
-                    <?php if(!empty($row['country_code'])): ?>
-                        <img src="https://flagcdn.com/w20/<?php echo strtolower(htmlspecialchars($row['country_code'])); ?>.png" width="20" alt="Flag">
-                    <?php endif; ?>
-                    — <?php echo htmlspecialchars($row['name']); ?> 
-                    <span style="color:var(--slate); opacity:0.7;">
-                        (<?php echo htmlspecialchars($row['position'] ?? ''); ?>)
-                    </span> 
-                    / <?php echo htmlspecialchars($row['company']); ?>
-                </p>
+                </div>
+                
+                <div class="feedback-author">
+                    <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); display: flex; align-items: center; gap: 10px;">
+                        <?php if(!empty($row['country_code'])): ?>
+                            <img src="https://flagcdn.com/w20/<?php echo strtolower(htmlspecialchars($row['country_code'])); ?>.png" width="20" alt="Flag">
+                        <?php endif; ?>
+                        — <?php echo htmlspecialchars($row['name']); ?> 
+                    </p>
+                    <p style="margin-top: 5px; font-size: 0.7rem; color: var(--slate);">
+                        <span style="color:var(--white); opacity:0.8;"><?php echo htmlspecialchars($row['position'] ?? ''); ?></span> 
+                        / <?php echo htmlspecialchars($row['company']); ?>
+                    </p>
+                </div>
             </div>
         <?php endforeach; else: ?>
             <p style="text-align: center; grid-column: 1/-1; opacity: 0.5;">Awaiting professional Reviews.</p>
@@ -265,6 +266,22 @@ try {
         <?php endif; ?>
     </div>
     <?php endif; ?>
+</section>
+
+<section id="connect">
+    <div class="glass-card">
+        <div class="form-box">
+            <form action="send_email.php" method="POST">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; line-height: 1; text-align:center;">Let's Connect</h3>
+                <p style="margin: 25px 0 45px; font-size: 1.1rem; text-align:center;">Secure financial partnership for international entities.</p>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="company" placeholder="Organization" required>
+                <input type="email" name="email" placeholder="Professional Email" required>
+                <textarea name="message" rows="4" placeholder="How can I assist your financials?" required></textarea>
+                <button type="submit" class="btn-gold" style="width: 100%;">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
 </section>
 
 <section style="background: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(255,255,255,0.05);">
@@ -322,4 +339,3 @@ try {
 </script>
 </body>
 </html>
-

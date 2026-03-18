@@ -2,7 +2,7 @@
 include "config.php";
 
 // 1. PAGINATION & DATABASE LOGIC
-$limit = 1; 
+$limit = 3; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 

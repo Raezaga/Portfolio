@@ -2,7 +2,7 @@
 include "config.php";
 
 // 1. PAGINATION & DATABASE LOGIC
-$limit = 3; 
+$limit = 4; 
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
@@ -29,7 +29,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afryl Lou Okit | Senior Financial Operations Partner</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         @font-face {
@@ -81,7 +81,7 @@ try {
         }
 
         nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
-        nav ul a { text-decoration: none; color: var(--slate); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        nav ul a { text-decoration: none; color: var(--slate); font-weight: 400; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
         nav ul a:hover { color: var(--gold); }
         .nav-admin { border: 1px solid var(--gold); padding: 8px 15px; color: var(--gold) !important; border-radius: 4px; }
 
@@ -96,11 +96,11 @@ try {
         .img-wrapper { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1/1; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; background: var(--bg); z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.6); }
         .hero-image img { width: 115%; height: 115%; object-fit: cover; object-position: center 20%; margin-left: -7.5%; }
 
-        .highlight-gold { color: var(--gold); text-transform: uppercase; font-weight: 700; }
+        .highlight-gold { color: var(--gold); text-transform: uppercase; font-weight: 600; }
 
         /* Buttons */
-        .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; text-align: center; }
-        .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
+        .btn-gold { padding: 22px 45px; background: var(--gold); color: var(--bg); border: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; text-align: center; }
+        .btn-outline { padding: 22px 45px; border: 2px solid var(--gold); color: var(--gold); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; transition: var(--transition); display: inline-block; }
         .btn-gold:hover, .btn-outline:hover { background: var(--white); color: var(--bg); border-color: var(--white); transform: translateY(-5px); }
 
         /* Tech Grid */
@@ -117,9 +117,9 @@ try {
             justify-content: center; 
         }
         .sw-pill img { margin-bottom: 15px; width: 100px; transition: 0.3s; }
-        .sw-pill span { color: var(--white); font-weight: 700; font-size: 0.65rem; letter-spacing: 2px; }
+        .sw-pill span { color: var(--white); font-weight: 400; font-size: 0.65rem; letter-spacing: 2px; }
 
-        /* Feedback Grid Refinement */
+        /* Feedback Grid - Fixed Squashing */
         .feedback-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
@@ -144,6 +144,7 @@ try {
             font-size: 1.25rem; 
             color: var(--white); 
             font-style: italic; 
+            font-weight: 400; /* No Bold */
             line-height: 1.8; 
             margin-bottom: 30px;
             max-height: 280px;
@@ -151,7 +152,7 @@ try {
             padding-right: 15px;
         }
 
-        /* Custom Gold Scrollbar */
+        /* Gold Scrollbar */
         .review-content::-webkit-scrollbar { width: 3px; }
         .review-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
         .review-content::-webkit-scrollbar-thumb { background: var(--gold); }
@@ -160,6 +161,17 @@ try {
             margin-top: auto;
             padding-top: 25px;
             border-top: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
+        .author-name {
+            font-weight: 400; /* No Bold */
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: var(--gold); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
         }
 
         /* Connect Section */
@@ -177,7 +189,7 @@ try {
         .form-box select option { background: #070a13; color: white; }
 
         .pagination { margin-top: 50px; display: flex; justify-content: center; gap: 10px; }
-        .pagination a { text-decoration: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-weight: 800; font-size: 0.7rem; transition: 0.3s; }
+        .pagination a { text-decoration: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,0.1); color: var(--white); font-weight: 600; font-size: 0.7rem; transition: 0.3s; }
         .pagination a.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
 
         footer { padding: 60px 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -206,7 +218,7 @@ try {
 
 <section id="hero" class="hero">
     <div class="hero-text">
-        <div style="border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; color: var(--gold); margin-bottom: 25px; letter-spacing: 4px; font-weight: 800; font-size: 0.7rem;">
+        <div style="border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; color: var(--gold); margin-bottom: 25px; letter-spacing: 4px; font-weight: 600; font-size: 0.7rem;">
            17+ Years Delivering Audit-Ready Financials for Growing Businesses
         </div>
         <h2>Transforming <span>Complex</span> Financials.</h2>
@@ -236,7 +248,7 @@ try {
                 </div>
                 
                 <div class="feedback-author">
-                    <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); display: flex; align-items: center; gap: 10px;">
+                    <p class="author-name">
                         <?php if(!empty($row['country_code'])): ?>
                             <img src="https://flagcdn.com/w20/<?php echo strtolower(htmlspecialchars($row['country_code'])); ?>.png" width="20" alt="Flag">
                         <?php endif; ?>
@@ -307,6 +319,7 @@ try {
 </footer>
 
 <script>
+    // Country logic and form submission script remain the same
     const countries = { "af": "Afghanistan", "al": "Albania", "dz": "Algeria", "as": "American Samoa", "ad": "Andorra", "ao": "Angola", "ai": "Anguilla", "ag": "Antigua and Barbuda", "ar": "Argentina", "am": "Armenia", "au": "Australia", "at": "Austria", "az": "Azerbaijan", "bs": "Bahamas", "bh": "Bahrain", "bd": "Bangladesh", "bb": "Barbados", "by": "Belarus", "be": "Belgium", "bz": "Belize", "bj": "Benin", "bm": "Bermuda", "bt": "Bhutan", "bo": "Bolivia", "ba": "Bosnia and Herzegovina", "bw": "Botswana", "br": "Brazil", "bn": "Brunei", "bg": "Bulgaria", "bf": "Burkina Faso", "bi": "Burundi", "kh": "Cambodia", "cm": "Cameroon", "ca": "Canada", "cv": "Cape Verde", "ky": "Cayman Islands", "cf": "Central African Republic", "td": "Chad", "cl": "Chile", "cn": "China", "co": "Colombia", "km": "Comoros", "cg": "Congo", "ck": "Cook Islands", "cr": "Costa Rica", "hr": "Croatia", "cu": "Cuba", "cy": "Cyprus", "cz": "Czech Republic", "dk": "Denmark", "dj": "Djibouti", "dm": "Dominica", "do": "Dominican Republic", "ec": "Ecuador", "eg": "Egypt", "sv": "El Salvador", "gq": "Equatorial Guinea", "er": "Eritrea", "ee": "Estonia", "et": "Ethiopia", "fj": "Fiji", "fi": "Finland", "fr": "France", "ga": "Gabon", "gm": "Gambia", "ge": "Georgia", "de": "Germany", "gh": "Ghana", "gr": "Greece", "gd": "Grenada", "gu": "Guam", "gt": "Guatemala", "gn": "Guinea", "gw": "Guinea-Bissau", "gy": "Guyana", "ht": "Haiti", "hn": "Honduras", "hk": "Hong Kong", "hu": "Hungary", "is": "Iceland", "in": "India", "id": "Indonesia", "ir": "Iran", "iq": "Iraq", "ie": "Ireland", "il": "Israel", "it": "Italy", "jm": "Jamaica", "jp": "Japan", "jo": "Jordan", "kz": "Kazakhstan", "ke": "Kenya", "ki": "Kiribati", "kp": "North Korea", "kr": "South Korea", "kw": "Kuwait", "kg": "Kyrgyzstan", "la": "Laos", "lv": "Latvia", "lb": "Lebanon", "ls": "Lesotho", "lr": "Liberia", "ly": "Libya", "li": "Liechtenstein", "lt": "Lithuania", "lu": "Luxembourg", "mo": "Macao", "mk": "North Macedonia", "mg": "Madagascar", "mw": "Malawi", "my": "Malaysia", "mv": "Maldives", "ml": "Mali", "mt": "Malta", "mh": "Marshall Islands", "mq": "Martinique", "mr": "Mauritania", "mu": "Mauritius", "mx": "Mexico", "fm": "Micronesia", "md": "Moldova", "mc": "Monaco", "mn": "Mongolia", "me": "Montenegro", "ms": "Montserrat", "ma": "Morocco", "mz": "Mozambique", "mm": "Myanmar", "na": "Namibia", "nr": "Nauru", "np": "Nepal", "nl": "Netherlands", "nz": "New Zealand", "ni": "Nicaragua", "ne": "Niger", "ng": "Nigeria", "nu": "Nuue", "no": "Norway", "om": "Oman", "pk": "Pakistan", "pw": "Palau", "ps": "Palestine", "pa": "Panama", "pg": "Papua New Guinea", "py": "Paraguay", "pe": "Peru", "ph": "Philippines", "pl": "Poland", "pt": "Portugal", "pr": "Puerto Rico", "qa": "Qatar", "re": "Reunion", "ro": "Romania", "ru": "Russia", "rw": "Rwanda", "kn": "Saint Kitts and Nevis", "lc": "Saint Lucia", "vc": "Saint Vincent", "ws": "Samoa", "sm": "San Marino", "st": "Sao Tome and Principe", "sa": "Saudi Arabia", "sn": "Senegal", "rs": "Serbia", "sc": "Seychelles", "sl": "Sierra Leone", "sg": "Singapore", "sk": "Slovakia", "si": "Slovenia", "sb": "Solomon Islands", "so": "Somalia", "za": "South Africa", "es": "Spain", "lk": "Sri Lanka", "sd": "Sudan", "sr": "Suriname", "sz": "Swaziland", "se": "Sweden", "ch": "Switzerland", "sy": "Syria", "tw": "Taiwan", "tj": "Tajikistan", "tz": "Tanzania", "th": "Thailand", "tl": "Timor-Leste", "tg": "Togo", "tk": "Tokelau", "to": "Tonga", "tt": "Trinidad and Barbuda", "tn": "Tunisia", "tr": "Turkey", "tm": "Turkmenistan", "tv": "Tuvalu", "ug": "Uganda", "ua": "Ukraine", "ae": "United Arab Emirates", "gb": "United Kingdom", "us": "United States", "uy": "Uruguay", "uz": "Uzbekistan", "vu": "Vanuatu", "ve": "Venezuela", "vn": "Vietnam", "vg": "Virgin Islands, British", "vi": "Virgin Islands, U.S.", "ye": "Yemen", "zm": "Zambia", "zw": "Zimbabwe" };
 
     const countrySelect = document.getElementById('countrySelect');

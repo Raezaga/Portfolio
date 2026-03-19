@@ -2,12 +2,20 @@
 session_start();
 include "config.php";
 
-if (isset($_GET['logout'])) { session_destroy(); header("Location: index.php"); exit; }
+// 1. LOGOUT HANDLER
+if (isset($_GET['logout'])) { 
+    session_destroy(); 
+    header("Location: index.php"); 
+    exit; 
+}
 
+// 2. AUTHENTICATION CHECK
 $admin_password = "AfrylAdmin"; 
 if (!isset($_SESSION['admin_auth'])) {
-    if (isset($_POST['pass']) && $_POST['pass'] === $admin_password) { $_SESSION['admin_auth'] = true; } 
-    else { 
+    if (isset($_POST['pass']) && $_POST['pass'] === $admin_password) { 
+        session_regenerate_id(true);
+        $_SESSION['admin_auth'] = true; 
+    } else { 
         die('
         <!DOCTYPE html>
         <html lang="en">
@@ -37,14 +45,31 @@ if (!isset($_SESSION['admin_auth'])) {
     }
 }
 
+// 3. ACTION HANDLER (APPROVE, DELETE, MOVE)
 if (isset($_GET['action']) && isset($_GET['id'])) {
     $id = (int)$_GET['id'];
-    if ($_GET['action'] == 'approve') { $pdo->prepare("UPDATE comments SET status = 'approved' WHERE id = ?")->execute([$id]); } 
-    elseif ($_GET['action'] == 'delete') { $pdo->prepare("DELETE FROM comments WHERE id = ?")->execute([$id]); }
-    header("Location: admin.php"); exit;
+    
+    if ($_GET['action'] == 'approve') { 
+        $pdo->prepare("UPDATE comments SET status = 'approved' WHERE id = ?")->execute([$id]); 
+    } 
+    elseif ($_GET['action'] == 'delete') { 
+        $pdo->prepare("DELETE FROM comments WHERE id = ?")->execute([$id]); 
+    }
+    elseif ($_GET['action'] == 'move_up') {
+        // Increase priority to move it "higher" on the index page
+        $pdo->prepare("UPDATE comments SET priority = priority + 1 WHERE id = ?")->execute([$id]);
+    }
+    elseif ($_GET['action'] == 'move_down') {
+        // Decrease priority to move it "lower"
+        $pdo->prepare("UPDATE comments SET priority = priority - 1 WHERE id = ?")->execute([$id]);
+    }
+    
+    header("Location: admin.php"); 
+    exit;
 }
 
-$list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll();
+// 4. DATA FETCH (Respecting Priority)
+$list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at DESC")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +94,7 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         .nav-links a:hover { color: white; }
         .logout { color: #ef4444 !important; border: 1px solid rgba(239, 68, 68, 0.2); padding: 8px 15px; border-radius: 5px; }
 
-        .table-container { background: var(--card); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .table-container { background: var(--card); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 15px; overflow-x: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         th { text-align: left; padding: 25px 20px; background: rgba(255,255,255,0.03); color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); }
         
@@ -78,39 +103,23 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
         td { padding: 25px 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         
         .reviewer-name { color: white; font-weight: 700; font-size: 1rem; }
-        
-        /* Position Column Style */
-        .reviewer-pos { 
-            color: var(--gold); 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            letter-spacing: 1px;
-            background: rgba(197, 160, 89, 0.05);
-            padding: 6px 12px;
-            border: 1px solid rgba(197, 160, 89, 0.1);
-            border-radius: 4px;
-        }
-
-        /* Company Column Style */
-        .reviewer-co { 
-            color: #ffffff; 
-            font-size: 0.85rem; 
-            font-weight: 600;
-            opacity: 0.8;
-        }
-        
+        .reviewer-pos { color: var(--gold); font-size: 0.75rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; background: rgba(197, 160, 89, 0.05); padding: 6px 12px; border: 1px solid rgba(197, 160, 89, 0.1); border-radius: 4px; }
+        .reviewer-co { color: #ffffff; font-size: 0.85rem; font-weight: 600; opacity: 0.8; }
         .review-text { color: #cbd5e1; font-style: italic; font-size: 0.9rem; line-height: 1.6; max-width: 300px; }
 
         .status-badge { padding: 6px 12px; border-radius: 100px; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; display: inline-block; }
         .status-pending { background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
         .status-approved { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
 
-        .btn-circle { width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); }
+        .btn-circle { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); font-size: 0.8rem; }
         .btn-approve { background: rgba(197, 160, 89, 0.1); color: var(--gold); }
         .btn-approve:hover { background: var(--gold); color: var(--bg); transform: translateY(-3px); }
+        .btn-move { color: var(--slate); border: 1px solid rgba(255,255,255,0.1); }
+        .btn-move:hover { color: white; border-color: white; transform: scale(1.1); }
         .btn-delete { color: #ef4444; margin-left: 8px; }
         .btn-delete:hover { background: #ef4444; color: white; transform: translateY(-3px); }
+
+        .priority-chip { font-size: 0.7rem; font-weight: 800; color: var(--gold); background: rgba(197,160,89,0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.2); }
 
         @media (max-width: 768px) {
             .header { flex-direction: column; text-align: center; gap: 20px; }
@@ -132,9 +141,11 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
             <table>
                 <thead>
                     <tr>
+                        <th>Order</th>
                         <th>Client Name</th>
                         <th>Professional Title</th>
-                        <th>Organization</th> <th>Region</th>
+                        <th>Organization</th> 
+                        <th>Region</th>
                         <th>Testimonial</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -143,6 +154,14 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY created_at DESC")->fetchAll
                 <tbody>
                     <?php foreach($list as $item): ?>
                     <tr>
+                        <td>
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <a href="?action=move_up&id=<?= $item['id'] ?>" class="btn-move" title="Move Up"><i class="fas fa-chevron-up"></i></a>
+                                <span class="priority-chip"><?= $item['priority'] ?></span>
+                                <a href="?action=move_down&id=<?= $item['id'] ?>" class="btn-move" title="Move Down"><i class="fas fa-chevron-down"></i></a>
+                            </div>
+                        </td>
+
                         <td><span class="reviewer-name"><?= htmlspecialchars($item['name']) ?></span></td>
                         <td><span class="reviewer-pos"><?= htmlspecialchars($item['position'] ?? 'Consultant') ?></span></td>
                         <td><span class="reviewer-co"><?= htmlspecialchars($item['company']) ?></span></td>

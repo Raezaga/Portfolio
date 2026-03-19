@@ -2,18 +2,18 @@
 session_start();
 include "config.php";
 
-// 1. LOGOUT HANDLER
+// 1. LOGOUT LOGIC
 if (isset($_GET['logout'])) { 
     session_destroy(); 
     header("Location: index.php"); 
     exit; 
 }
 
-// 2. AUTHENTICATION CHECK
+// 2. AUTHENTICATION (Using your password "AfrylAdmin")
 $admin_password = "AfrylAdmin"; 
 if (!isset($_SESSION['admin_auth'])) {
     if (isset($_POST['pass']) && $_POST['pass'] === $admin_password) { 
-        session_regenerate_id(true);
+        session_regenerate_id(true); 
         $_SESSION['admin_auth'] = true; 
     } else { 
         die('
@@ -45,7 +45,7 @@ if (!isset($_SESSION['admin_auth'])) {
     }
 }
 
-// 3. ACTION HANDLER (APPROVE, DELETE, MOVE)
+// 3. DATABASE ACTIONS (Approve, Delete, Move)
 if (isset($_GET['action']) && isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     
@@ -56,19 +56,16 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         $pdo->prepare("DELETE FROM comments WHERE id = ?")->execute([$id]); 
     }
     elseif ($_GET['action'] == 'move_up') {
-        // Increase priority to move it "higher" on the index page
         $pdo->prepare("UPDATE comments SET priority = priority + 1 WHERE id = ?")->execute([$id]);
     }
     elseif ($_GET['action'] == 'move_down') {
-        // Decrease priority to move it "lower"
         $pdo->prepare("UPDATE comments SET priority = priority - 1 WHERE id = ?")->execute([$id]);
     }
-    
     header("Location: admin.php"); 
     exit;
 }
 
-// 4. DATA FETCH (Respecting Priority)
+// 4. FETCH DATA (Sorted by Priority first)
 $list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at DESC")->fetchAll();
 ?>
 
@@ -102,6 +99,12 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at D
         tr:hover { background: rgba(255,255,255,0.03); }
         td { padding: 25px 20px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         
+        /* New Order Column Styles */
+        .order-controls { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .btn-move { color: var(--slate); text-decoration: none; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
+        .btn-move:hover { color: var(--gold); transform: scale(1.2); }
+        .priority-chip { font-size: 0.7rem; font-weight: 800; color: var(--gold); background: rgba(197,160,89,0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.2); min-width: 25px; text-align: center; }
+
         .reviewer-name { color: white; font-weight: 700; font-size: 1rem; }
         .reviewer-pos { color: var(--gold); font-size: 0.75rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; background: rgba(197, 160, 89, 0.05); padding: 6px 12px; border: 1px solid rgba(197, 160, 89, 0.1); border-radius: 4px; }
         .reviewer-co { color: #ffffff; font-size: 0.85rem; font-weight: 600; opacity: 0.8; }
@@ -111,15 +114,11 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at D
         .status-pending { background: rgba(251, 191, 36, 0.1); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
         .status-approved { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
 
-        .btn-circle { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); font-size: 0.8rem; }
+        .btn-circle { width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; border: 1px solid var(--border); }
         .btn-approve { background: rgba(197, 160, 89, 0.1); color: var(--gold); }
         .btn-approve:hover { background: var(--gold); color: var(--bg); transform: translateY(-3px); }
-        .btn-move { color: var(--slate); border: 1px solid rgba(255,255,255,0.1); }
-        .btn-move:hover { color: white; border-color: white; transform: scale(1.1); }
         .btn-delete { color: #ef4444; margin-left: 8px; }
         .btn-delete:hover { background: #ef4444; color: white; transform: translateY(-3px); }
-
-        .priority-chip { font-size: 0.7rem; font-weight: 800; color: var(--gold); background: rgba(197,160,89,0.1); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.2); }
 
         @media (max-width: 768px) {
             .header { flex-direction: column; text-align: center; gap: 20px; }
@@ -155,10 +154,14 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at D
                     <?php foreach($list as $item): ?>
                     <tr>
                         <td>
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                                <a href="?action=move_up&id=<?= $item['id'] ?>" class="btn-move" title="Move Up"><i class="fas fa-chevron-up"></i></a>
-                                <span class="priority-chip"><?= $item['priority'] ?></span>
-                                <a href="?action=move_down&id=<?= $item['id'] ?>" class="btn-move" title="Move Down"><i class="fas fa-chevron-down"></i></a>
+                            <div class="order-controls">
+                                <a href="?action=move_up&id=<?= $item['id'] ?>" class="btn-move" title="Move Up">
+                                    <i class="fas fa-chevron-up"></i>
+                                </a>
+                                <span class="priority-chip"><?= htmlspecialchars($item['priority'] ?? '0') ?></span>
+                                <a href="?action=move_down&id=<?= $item['id'] ?>" class="btn-move" title="Move Down">
+                                    <i class="fas fa-chevron-down"></i>
+                                </a>
                             </div>
                         </td>
 
@@ -168,8 +171,8 @@ $list = $pdo->query("SELECT * FROM comments ORDER BY priority DESC, created_at D
                         <td>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <?php if(!empty($item['country_code'])): ?>
-                                    <img src="https://flagcdn.com/w20/<?= strtolower($item['country_code']) ?>.png" width="20" style="border-radius:2px;">
-                                    <span style="color:white; font-size:0.75rem; font-weight:800;"><?= strtoupper($item['country_code']) ?></span>
+                                    <img src="https://flagcdn.com/w20/<?= strtolower(htmlspecialchars($item['country_code'])) ?>.png" width="20" style="border-radius:2px;">
+                                    <span style="color:white; font-size:0.75rem; font-weight:800;"><?= strtoupper(htmlspecialchars($item['country_code'])) ?></span>
                                 <?php else: ?>
                                     <span style="opacity:0.2;">—</span>
                                 <?php endif; ?>
